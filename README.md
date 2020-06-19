@@ -20,16 +20,25 @@
 ## Components
 - App.js - renders the Header component
 - Landing.js - Will hold necessary auth requirements such as a form container with an input field for a username and password. It will have username and password variables stored on state and the axios.post request for creating a new user and logging in an existing user along with their respective methods of login() and register()
-- Header.js - Will contain the nav links for Home, About, Ask, Post, and DreamJournal. It will contain state with the users name, profile pic info 
+<img src="./pictures/LandingWelcome.png">
+<img src="./pictures/LandingAuth.png">
+- Header.js - Will contain the nav links for Home, About, Ask, Post, and DreamJournal. It will contain state with the users name, profile pic info
+<img src="./pictures/Header.png"> 
 - Home.js will contain state for the current user's username so it can display a personalized welcome message.
 - About.js - Will have a sidebar which will be a list of various methods of Lucid Dreaming and will link to more info about those methods
+<img src="./pictures/About.png">
 - Topics.js will contain the information of various methods of Lucid Dreaming
 - GettingStarted.js - Will be a list of steps to have your first Lucid Dreaming.
 - Posts.js - will display the list of posts made by the different users which will show the title, topic, date posted, author, and a preview of the content. State will contain posts initialized to an empty array and an isEditing key initialized to false. componentDidMount() will make an axios.get request to retrieve all of the posts and their information. A createNew() method will make an axios.post to save the users post to the database. Once the user has posted, if the post is theirs, they can choose to edit() which will make an axios.put call to allow user to edit. There will also need to be an edit toggle method and change isEditing on state to true. and a delete() option which will have an axios.delete call to delete a user's post if desired.
+<img src="./pictures/Posts.png">
 - Post.js - Will use the post id as a parameter and display the full post made by the user. (maybe not needed)
+<img src="./pictures/Post.png"> 
 - Ask.js - will display names of the Lucid dreaming experts which can be clicked on to see the questions they have answered (if time permits). An input box will be provided after clicking an Ask question. A method to update state with what the textarea says will be recorded. After the user submits their question an axios.post will send it to the questions database which only admins can access.
+<img src="./pictures/Ask.png">
 - DreamJournal.js - will contain state for the user's input. a componentDidMount() makes an axios.get call to get the user's dream journal entries. state will contain a search input initialized to an empty string, posts an empty array. it will have a method to update search input. the search() method will make an axios.post call to check if there is an entry with matching titles. You can click on each of your entries to view them in full which will bring you to a screen with your journal entries contained in a book. 
+<img src="./pictures/DreamJournal.png">
 - Entry.js - will display the full journal entry. Will be passed props from Dream Journal containing the entry information and using a parameter of the journal id to get to the specific entry. A componentDidMount() will be needed to do that by making an axios.get call.
+<img src="./pictures/Entry.png">
 
 ## Routes
 - / = Landing
