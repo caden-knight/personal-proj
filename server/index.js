@@ -13,8 +13,23 @@ app.use(session({
     secret: SESSION_SECRET
 }))
 
-//Post endpoints
 
+// Auth endpoints
+app.post('/auth/login')
+
+// user posts endpoints
+app.get('/api/posts') //allPosts
+app.get('/api/post/:postid') //getPost
+app.post('/api/post') //newPost
+app.put('/api/post/:postid') //editPost
+app.delete('/api/post/:postid') //deletePost
+
+// journal entry endpoints
+app.get('/api/entries') //allEntries?
+app.get('/api/entry/:entryid') //getEntry
+app.post('/api/entry') //newEntry
+app.put('/api/entry/:entryid') //editEntry
+app.delete('/api/entry/:entryid') //deleteEntry
 
 massive({
     connectionString: CONNECTION_STRING,
