@@ -4,6 +4,8 @@ const session = require('express-session');
 const massive = require('massive');
 const app = express()
 const {SERVER_PORT, SESSION_SECRET, CONNECTION_STRING} = process.env
+const authCtrl = require('./contollers/authCtrl')
+const ctrl = require('./contollers/ctrl')
 
 app.use(express.json())
 app.use(session({
@@ -13,23 +15,24 @@ app.use(session({
     secret: SESSION_SECRET
 }))
 
+//Auth endpoints
+app.post('/auth/login', authCtrl.login)
+app.post('/auth/register', authCtrl.register)
+app.delete('./auth/logout', authCtrl.logout)
 
-// Auth endpoints
-app.post('/auth/login')
+//user posts endpoints
+app.get('/api/posts', ctrl.allPosts) //allPosts
+app.get('/api/post/:postid', ctrl.getPost) //getPost
+app.post('/api/post', ctrl.newPost) //newPost
+app.put('/api/post/:postid', ctrl.editPost) //editPost
+app.delete('/api/post/:postid', ctrl.deletePost) //deletePost
 
-// user posts endpoints
-app.get('/api/posts') //allPosts
-app.get('/api/post/:postid') //getPost
-app.post('/api/post') //newPost
-app.put('/api/post/:postid') //editPost
-app.delete('/api/post/:postid') //deletePost
-
-// journal entry endpoints
+//journal entry endpoints
 app.get('/api/entries') //allEntries?
-app.get('/api/entry/:entryid') //getEntry
-app.post('/api/entry') //newEntry
-app.put('/api/entry/:entryid') //editEntry
-app.delete('/api/entry/:entryid') //deleteEntry
+app.get('/api/entry/:entryid', ctrl.getEntry) //getEntry
+app.post('/api/entry', ctrl.newEntry) //newEntry
+app.put('/api/entry/:entryid', ctrl.editEntry) //editEntry
+app.delete('/api/entry/:entryid', ctrl.deletePost) //deleteEntry
 
 massive({
     connectionString: CONNECTION_STRING,
@@ -39,5 +42,7 @@ massive({
     console.log('ALL SYSTEMS ONLINE')
     app.listen(SERVER_PORT, () => console.log(`SYSTEMS READY ON ${SERVER_PORT}`)) 
 }).catch(err => console.log(err))
+
+
 
 
