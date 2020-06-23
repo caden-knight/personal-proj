@@ -1,3 +1,4 @@
+import React from 'react'
 import {Switch, Route} from 'react-router'
 import Landing from './components/Landing/Landing'
 import Home from './components/Home/Home'

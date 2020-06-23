@@ -18,6 +18,7 @@ app.use(session({
 //Auth endpoints
 app.post('/auth/login', authCtrl.login)
 app.post('/auth/register', authCtrl.register)
+app.get('/auth/user', authCtrl.getUser)
 app.delete('./auth/logout', authCtrl.logout)
 
 //user posts endpoints

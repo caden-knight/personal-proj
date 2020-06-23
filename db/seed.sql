@@ -1,10 +1,10 @@
 CREATE TABLE "users" (
-  "id" SERIAL PRIMARY KEY,
-  "username" VARCHAR(75),
-  "password" VARCHAR(50),
-  "admin" BOOLEAN,
-  "phone" INT,
-  "prof_pic" TEXT
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(75),
+  password TEXT,
+  admin BOOLEAN,
+  phone INT,
+  prof_pic TEXT
 );
 
 CREATE TABLE "dream_journal" (
@@ -38,4 +38,4 @@ ALTER TABLE "dream_journal" ADD FOREIGN KEY ("author_id") REFERENCES "users" ("i
 
 ALTER TABLE "posts" ADD FOREIGN KEY ("author_id") REFERENCES "users" ("id");
 
-ALTER TABLE "questions" ADD FOREIGN KEY ("author_id") REFERENCES "us 
+ALTER TABLE "questions" ADD FOREIGN KEY ("author_id") REFERENCES "users" 
