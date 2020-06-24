@@ -1,0 +1,29 @@
+* {
+	box-sizing: border-box;
+}
+
+.title {
+	text-align: center;
+	font-size: 30px;
+}
+
+.author {
+	font-size: 24px;
+}
+
+.date {
+	margin-bottom: 15px;
+}
+
+.content {
+	font-size: 20px;
+	height: 150px;
+}
+
+.post-boxes {
+    display: inline-block;
+	height: 150px;
+	width: 75vw;
+	background-color: aqua;
+	margin: 10px;
+}

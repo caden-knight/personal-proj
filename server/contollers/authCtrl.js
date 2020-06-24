@@ -20,6 +20,7 @@ module.exports = {
 			}
 
 			if(authenticated) {
+				req.session.user = existingUser[0]
 				res.status(200).send(existingUser[0])
 			}
 			
@@ -59,7 +60,7 @@ module.exports = {
 	},
 	 //get user data
 	 getUser: (req, res) => {
-		 console.log(req.session.user)
+		console.log(req.session.user)
         if(req.session.user) {
             res.status(200).send(req.session.user)
         } else {
