@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { loginUser, logout } from '../../ducks/reducer';
 import { connect } from 'react-redux';
+import {withRouter} from 'react-router-dom'
 import axios from 'axios';
 
 class Header extends React.Component {
@@ -17,7 +18,8 @@ class Header extends React.Component {
 		axios
 			.delete('/auth/logout')
 			.then((res) => {
-				this.props.logout();
+				this.props.logout()
+				this.props.history.push('/');
 			})
 			.catch((err) => console.log(err));
 	}
@@ -45,4 +47,4 @@ class Header extends React.Component {
 const mapStateToProps = (state) => state;
 const dispatchToProps = { loginUser, logout };
 
-export default connect(mapStateToProps, dispatchToProps)(Header);
+export default withRouter(connect(mapStateToProps, dispatchToProps)(Header));

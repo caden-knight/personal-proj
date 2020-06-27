@@ -21,10 +21,10 @@ module.exports = {
 		const { entryid } = req.params;
 
 		//call the db query
-		const [ entry ] = await db.get_all_entries.find(entryid);
+		const entry = await db.get_entry(entryid);
 
 		//check if it exists
-		if (entry) {
+		if (entry[0]) {
 			res.status(200).send(entry);
 		} else {
 			return res.status(404).send('Entry not found');
@@ -38,7 +38,7 @@ module.exports = {
 		const { lucid, title, date, content, dream_signs } = req.body;
 
 		//create new entry
-		const newEntry = db.add_entry(lucid, title, date, content, dream_signs, id);
+		const newEntry = db.add_entry(lucid, title, content, dream_signs, id);
 
 		//send it to the frontend
 		if (newEntry) {
@@ -55,12 +55,17 @@ module.exports = {
         //get params
 		const db = req.app.get('db');
         const { entryid } = req.params;
-        const { lucid, title, content, author_id } = req.body;
+        const { lucid, title, content, dreamSigns } = req.body;
 
 		//call the db query
-        const editedPost = await db.editEntry(lucid, title, content, author_id)
+        const editedPost = await db.edit_entry(lucid, title, content, dreamSigns, entryid)
 
-        //check if the entry exists
+        //send it and account for errors
+        if(!editedPost) {
+            return res.status(404).send('No post to edit')
+        } else {
+            res.status(200).send(editedPost)
+        }
         
 
 	},
@@ -72,5 +77,5 @@ module.exports = {
 		//delete the entry
 		await db.delete_entry(entryid).catch((err) => console.log(err));
 		res.sendStatus(200);
-	}
+    }
 };

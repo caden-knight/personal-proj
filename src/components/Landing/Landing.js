@@ -15,15 +15,15 @@ class Landing extends Component {
 		};
 	}
 	login() {
-		// const { username, password } = this.state;
-		// axios
-		// 	.post('/auth/login', { username, password })
-		// 	.then((res) => {
-		// 		console.log(res.data)
-		// 		// this.props.loginUser(res.data);
-		// 		// this.props.history.push('/home');
-		// 	})
-		// 	.catch((err) => console.log('Username or Password is incorrect. Try again Foo', err));
+		const { username, password } = this.state;
+		axios
+			.post('/auth/login', { username, password })
+			.then((res) => {
+				console.log(res.data)
+				this.props.loginUser(res.data);
+				this.props.history.push('/home');
+			})
+			.catch((err) => console.log('Username or Password is incorrect. Try again Foo', err));
 	}
 	register() {
 		const { username, password, profilePic } = this.state;

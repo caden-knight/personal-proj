@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import './Posts.css';
 
 class Posts extends Component {
+	_isMounted = false;
 	constructor() {
 		super();
 		this.state = {
@@ -15,12 +16,19 @@ class Posts extends Component {
 		};
 	}
 	componentDidMount() {
+		this._isMounted = true;
+
 		axios
 			.get('/api/posts')
 			.then((res) => {
-				this.setState({ posts: res.data });
+				if(this._isMounted) {
+					this.setState({ posts: res.data });
+				}
 			})
 			.catch((err) => alert(err));
+	}
+	componentWillUnmount() {
+		this._isMounted = false;
 	}
 	creatingToggle() {
 		const { creatingNew } = this.state;
@@ -50,7 +58,7 @@ class Posts extends Component {
 	}
 	render() {
 		const { posts, creatingNew } = this.state;
-		posts.sort((a, b) =>  b.id - a.id)
+		posts.sort((a, b) => b.id - a.id);
 		const allPosts = posts.map((post) => {
 			return (
 				<div key={post.id} className="post-boxes">
