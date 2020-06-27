@@ -5,7 +5,8 @@ const massive = require('massive');
 const app = express()
 const {SERVER_PORT, SESSION_SECRET, CONNECTION_STRING} = process.env
 const authCtrl = require('./contollers/authCtrl')
-const ctrl = require('./contollers/ctrl')
+const postCtrl = require('./contollers/postCtrl')
+const journalCtrl = require('./contollers/journalCtrl')
 
 app.use(express.json())
 app.use(session({
@@ -19,21 +20,21 @@ app.use(session({
 app.post('/auth/login', authCtrl.login)
 app.post('/auth/register', authCtrl.register)
 app.get('/auth/user', authCtrl.getUser)
-app.delete('./auth/logout', authCtrl.logout)
+app.delete('/auth/logout', authCtrl.logout)
 
 //user posts endpoints
-app.get('/api/posts', ctrl.allPosts) //allPosts
-app.get('/api/post/:postid', ctrl.getPost) //getPost
-app.post('/api/post', ctrl.newPost) //newPost
-app.put('/api/post/:postid', ctrl.editPost) //editPost
-app.delete('/api/post/:postid', ctrl.deletePost) //deletePost
+app.get('/api/posts', postCtrl.allPosts) //allPosts
+app.get('/api/post/:postid', postCtrl.getPost) //getPost
+app.post('/api/post', postCtrl.newPost) //newPost
+app.put('/api/post/:postId', postCtrl.editPost) //editPost
+app.delete('/api/post/:postId', postCtrl.deletePost) //deletePost
 
 //journal entry endpoints
-app.get('/api/entries') //allEntries?
-app.get('/api/entry/:entryid', ctrl.getEntry) //getEntry
-app.post('/api/entry', ctrl.newEntry) //newEntry
-app.put('/api/entry/:entryid', ctrl.editEntry) //editEntry
-app.delete('/api/entry/:entryid', ctrl.deletePost) //deleteEntry
+app.get('/api/entries', journalCtrl.allEntries) //allEntries
+app.get('/api/entry/:entryid', journalCtrl.getEntry) //getEntry
+app.post('/api/entry', journalCtrl.newEntry) //newEntry
+app.put('/api/entry/:entryid', journalCtrl.editEntry) //editEntry
+app.delete('/api/entry/:entryid', journalCtrl.deleteEntry) //deleteEntry
 
 massive({
     connectionString: CONNECTION_STRING,

@@ -1,0 +1,1 @@
+insert into dream_journal (lucid, title, content);

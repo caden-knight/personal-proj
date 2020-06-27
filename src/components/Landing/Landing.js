@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { loginUser } from '../../ducks/reducer';
+import {withRouter} from 'react-router-dom'
 
 class Landing extends Component {
 	constructor() {
@@ -12,17 +13,17 @@ class Landing extends Component {
 			profilePic: '',
 			continueBtn: false
 		};
-		this.login = this.login.bind(this);
 	}
 	login() {
-		const { username, password } = this.state;
-		axios
-			.post('/auth/login', { username, password })
-			.then((res) => {
-				this.props.loginUser(res.data);
-				this.props.history.push('/home');
-			})
-			.catch((err) => alert('Username or Password is incorrect. Try again Foo'));
+		// const { username, password } = this.state;
+		// axios
+		// 	.post('/auth/login', { username, password })
+		// 	.then((res) => {
+		// 		console.log(res.data)
+		// 		// this.props.loginUser(res.data);
+		// 		// this.props.history.push('/home');
+		// 	})
+		// 	.catch((err) => console.log('Username or Password is incorrect. Try again Foo', err));
 	}
 	register() {
 		const { username, password, profilePic } = this.state;
@@ -67,7 +68,7 @@ class Landing extends Component {
 						<button className="login-btn" onClick={() => this.login()}>
 							Login
 						</button>
-						<button className="reg-btn" onClick={() => this.register()}> 
+						<button className="reg-btn" onClick={() => this.register()}>
 							Register
 						</button>
 					</form>
@@ -84,4 +85,4 @@ class Landing extends Component {
 const mapStateToProps = (state) => state;
 const dispatchStateProps = { loginUser };
 
-export default connect(mapStateToProps, dispatchStateProps)(Landing);
+export default withRouter(connect(mapStateToProps, dispatchStateProps)(Landing));

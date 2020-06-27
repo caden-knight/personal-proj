@@ -1,25 +1,26 @@
-import React, { Component, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import routes from './routes';
 import Header from './components/Header/Header';
 import { connect } from 'react-redux';
-import Axios from 'axios'
-import {loginUser} from './ducks/reducer'
+import Axios from 'axios';
+import { loginUser } from './ducks/reducer';
+import Landing from './components/Landing/Landing';
+import { withRouter } from 'react-router-dom';
 import './App.css';
 
 function App(props) {
 	useEffect(() => {
-			Axios.get('/auth/user').then(res => {
-				props.loginUser(res.data)
-			})
-		
-	
-	}, []) 
-
-	console.log(props.isLoggedIn);
+		console.log(props);
+		Axios.get('/auth/user').then((res) => {
+			props.loginUser(res.data);
+		});
+	}, []);
 	return (
 		<div className="routes">
 			{!props.isLoggedIn ? (
-				<div>{routes}</div>
+				<div>
+					<Landing />
+				</div>
 			) : (
 				<div>
 					<Header /> {routes}
@@ -30,4 +31,4 @@ function App(props) {
 }
 
 const mapStateToProps = (state) => state;
-export default connect(mapStateToProps, {loginUser})(App);
+export default withRouter(connect(mapStateToProps, { loginUser })(App));

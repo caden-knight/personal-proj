@@ -19,18 +19,26 @@ export function loginUser(user) {
 	};
 }
 
+export function logout() {
+	return {
+		type: LOGOUT_USER,
+		payload: initialState
+	}
+}
+
 export default function(state = initialState, action) {
 	const payload = action.payload;
 	switch (action.type) {
 		case LOGIN_USER:
-			console.log(payload);
 			return { 
 				...state, 
 				username: payload.username, 
 				userId: payload.id,
 				profilePic: payload.profile_pic, 
 				isLoggedIn: true 
-			};
+			}
+		case LOGOUT_USER:	
+			return initialState
 		default:
 			return state;
 	}

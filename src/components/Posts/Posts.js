@@ -9,6 +9,7 @@ class Posts extends Component {
 		this.state = {
 			posts: [],
 			creatingNew: false,
+			myPosts: false,
 			title: '',
 			content: ''
 		};
@@ -25,14 +26,19 @@ class Posts extends Component {
 		const { creatingNew } = this.state;
 		this.setState({ creatingNew: !creatingNew });
 	}
+	myPostsToggle() {
+		const { myPosts } = this.state;
+
+		this.setState({ myPosts: !myPosts });
+	}
 	newPost() {
 		const { title, content } = this.state;
-		const id = this.props.userId;
 		axios
 			.post('/api/post', { title, content })
 			.then((res) => {
-				this.state.posts.push(res.data);
+				this.setState(res.data);
 				this.creatingToggle();
+				this.componentDidMount();
 			})
 			.catch((err) => console.log(err));
 	}
@@ -44,28 +50,27 @@ class Posts extends Component {
 	}
 	render() {
 		const { posts, creatingNew } = this.state;
-		console.log(posts);
+		posts.sort((a, b) =>  b.id - a.id)
 		const allPosts = posts.map((post) => {
 			return (
-				<div className="post-boxes" key={post.id}>
-					<div className="postbox-info">
-						<h1 className="title">{post.title}</h1>
-						<h2 className="author">{post.username}</h2>
-						<h2 className="date">{post.date}</h2>
-						<h3 className="content">{post.content}</h3>
-					</div>
+				<div key={post.id} className="post-boxes">
+					<h1 className="title">{post.title}</h1>
+					<h2 className="author">{post.username}</h2>
+					<h2 className="date">Posted on {post.date}</h2>
+					<h3 className="content">{post.content}</h3>
 				</div>
 			);
 		});
+
 		return (
 			<div className="top-div">
 				Posts
 				{!creatingNew ? (
-					<div>
-						<form>
-							<button onClick={() => this.creatingToggle()}>New post</button>
-						</form>
-						{allPosts}
+					<div className="post-view">
+						<button onClick={() => this.creatingToggle()}>New post</button>
+						<input onClick={() => this.myPostsToggle()} type="checkbox" id="my-posts" />
+						<label htmlFor="my-posts">My Posts</label>
+						<div className="all-posts">{allPosts}</div>
 					</div>
 				) : (
 					<form>
@@ -75,7 +80,9 @@ class Posts extends Component {
 							placeholder="Share your experiences here"
 							type="text"
 						/>
-						<button onClick={() => this.newPost()}>Post</button>
+						<button onClick={() => this.newPost()} type="submit">
+							Post
+						</button>
 						<button onClick={() => this.creatingToggle()}>Cancel</button>
 					</form>
 				)}

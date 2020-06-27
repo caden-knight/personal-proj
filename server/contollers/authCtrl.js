@@ -23,7 +23,6 @@ module.exports = {
 				req.session.user = existingUser[0]
 				res.status(200).send(existingUser[0])
 			}
-			
 		} catch (err) {
 			console.log(err)
 			res.status(404).send('Username or password incorrect')
@@ -60,7 +59,6 @@ module.exports = {
 	},
 	 //get user data
 	 getUser: (req, res) => {
-		console.log(req.session.user)
         if(req.session.user) {
             res.status(200).send(req.session.user)
         } else {

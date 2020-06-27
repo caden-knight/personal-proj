@@ -38,4 +38,5 @@ ALTER TABLE "dream_journal" ADD FOREIGN KEY ("author_id") REFERENCES "users" ("i
 
 ALTER TABLE "posts" ADD FOREIGN KEY ("author_id") REFERENCES "users" ("id");
 
-ALTER TABLE "questions" ADD FOREIGN KEY ("author_id") REFERENCES "users" 
+ALTER TABLE "questions" ADD FOREIGN KEY ("author_id") REFERENCES "users";
+alter table posts alter column date TYPE text;
