@@ -13,7 +13,10 @@ function App(props) {
 		console.log(props);
 		Axios.get('/auth/user').then((res) => {
 			props.loginUser(res.data);
-		}).catch(err => console.log('Not logged in'));
+		}).catch(err => console.log('Not logged in'))
+		// if(!props.isLoggedIn) {
+		// 	props.history.push('/')
+		// };
 	}, []);
 	return (
 		<div className="routes">

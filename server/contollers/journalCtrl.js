@@ -30,15 +30,15 @@ module.exports = {
 			return res.status(404).send('Entry not found');
 		}
 	},
-	newEntry: (req, res) => {
+	newEntry: async (req, res) => {
 		//access the database
 		//get what you need from req.body
 		const db = req.app.get('db');
 		const id = req.session.user.id;
-		const { lucid, title, date, content, dream_signs } = req.body;
+		const { lucid, title, date, content, dreamSigns } = req.body;
 
 		//create new entry
-		const newEntry = db.add_entry(lucid, title, content, dream_signs, id);
+		const newEntry = await db.add_entry(lucid, title, content, dreamSigns, date, id);
 
 		//send it to the frontend
 		if (newEntry) {

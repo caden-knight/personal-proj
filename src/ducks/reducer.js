@@ -1,5 +1,3 @@
-import Axios from 'axios';
-
 const initialState = {
 	username: null,
 	userId: 0,
@@ -34,7 +32,7 @@ export default function(state = initialState, action) {
 				...state, 
 				username: payload.username, 
 				userId: payload.id,
-				profilePic: payload.profile_pic, 
+				profilePic: payload.prof_pic, 
 				isLoggedIn: true 
 			}
 		case LOGOUT_USER:	

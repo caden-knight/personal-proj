@@ -1,33 +1,139 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import './DreamJournal.css';
 
-export default class DreamJournal extends Component {
-    constructor() {
-        super()
-        this.state = {
-            entries: []
-        }
+class DreamJournal extends Component {
+	constructor() {
+		super();
+		this.state = {
+			entries: [],
+			creating: false,
+			title: '',
+			content: '',
+            date: '',
+            dreamSigns: '',
+            lucid: false
+		};
+	}
+	componentDidMount() {
+		axios
+			.get('/api/entries')
+			.then((res) => {
+				this.setState({ entries: res.data });
+			})
+			.catch((err) => console.log(err));
+	}
+	creatingToggle() {
+		const { creating } = this.state;
+		this.setState({ creating: !creating });
     }
-    componentDidMount() {
+    lucidToggle() {
+        const {lucid} = this.state
+
+        this.setState({lucid: !lucid})
+    }
+    title(title) {
+        this.setState({title: title.target.value}) 
+     }
+     date(date) {
+        this.setState({date: date.target.value}) 
+     }
+     content(content) {
+        this.setState({content: content.target.value}) 
+     }
+     dreamSigns(signs) {
+        this.setState({dreamSigns: signs.target.value}) 
+     }
+    addEntry() {
+        const id = this.props.userId
+        const {title, lucid, date, content, dreamSigns} = this.state
         axios
-        .get('/api/entries')
+        .post('/api/entry', {lucid, title, content, dreamSigns, date, id })
         .then(res => {
             this.setState({entries: res.data})
+            this.creatingToggle()
+            this.componentDidMount()
         })
         .catch(err => console.log(err))
     }
-    render() {
-        const {entries} = this.state
-        const allEntries = entries.map(entry => {
-            return <div key={entry.id}>
-                <h1>{entry.title}</h1>
-                <h2>{entry.content}</h2>
-            </div>
-        })
-        return (
-            <div>DreamJournal
-                {allEntries}
-            </div>
-        )
-    }
+	render() {
+		const { entries } = this.state;
+		const { creating } = this.state;
+		console.log(entries);
+		const allEntries = entries.map((entry) => {
+			if (entry.author_id === this.props.userId) {
+				return (
+					<div key={entry.id}>
+						<Link to={`/entry/${entry.id}`}>{entry.title}</Link>
+						<span> {entry.date} </span>
+					</div>
+				);
+			} else {
+				return null;
+			}
+		});
+
+		return (
+			<div>
+				{!creating ? (
+					<div className="journal-div">
+						<div className="journal">
+							<h1 className="journal-title">{this.props.username}'s Dream Journal</h1>
+						</div>
+						<div className="pages" />
+						<div className="contents">
+							<h1 className="toc">Table of Contents</h1>
+							<h2 className="title"> {allEntries} </h2>
+						</div>
+						<button id="create-btn" onClick={() => this.creatingToggle()}>
+							Record a Dream
+						</button>
+					</div>
+				) : (
+
+                    //Add a New Entry Form
+					<form className="new-entry">
+						<input
+							id="title"
+							placeholder="Title Your Dream..."
+							onChange={(title) => this.title(title)}
+						/>
+                        <input 
+                        type="checkbox" 
+                        id="lucid"
+                        onClick={() => this.lucidToggle()}
+                        />
+                        <label id="lucid-label" htmlFor="lucid">Lucid Dream</label>
+
+						<input
+                        type="date"
+							id="date"
+							placeholder="When did you have the dream..."
+							onChange={(date) => this.date(date)}
+						/>
+
+						<textarea
+							id="content"
+							placeholder="What happened in your dream..."
+							onChange={(content) => this.content(content)}
+						/>
+                        <textarea 
+                        id="dream-signs"
+                        placeholder="What patterns do you notice..."
+                        onChange={(signs) => this.dreamSigns(signs)}
+                        />
+                        <button id="record-btn" onClick={() => this.addEntry()}>Record My Dream!</button>
+
+						<button id="cancel-btn" onClick={() => this.creatingToggle()}>
+							Cancel
+						</button>
+					</form>
+				)}
+			</div>
+		);
+	}
 }
+const mapStateToProps = (state) => state;
+export default connect(mapStateToProps)(DreamJournal);

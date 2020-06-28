@@ -23,7 +23,7 @@ class Landing extends Component {
 				this.props.loginUser(res.data);
 				this.props.history.push('/home');
 			})
-			.catch((err) => console.log('Username or Password is incorrect. Try again Foo', err));
+			.catch((err) => alert('Username or Password is incorrect. Try again Foo', err));
 	}
 	register() {
 		const { username, password, profilePic } = this.state;
