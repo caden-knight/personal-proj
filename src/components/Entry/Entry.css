@@ -1,0 +1,38 @@
+.open-journal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 12px;
+    height: 750px;
+    width: 900px;
+    background-color: #3f3f3f;
+    overflow: hidden;
+}
+
+.l-pg {
+    padding: 15px;
+    height: 725px;
+    width: 425px;
+    background-color: #FFFACC;
+}
+#middle-strip {
+    position: absolute;
+    margin: auto;
+    background-color: #EBE4A3;
+    width: 10px;
+    height: 725px;
+}
+#r-pg {
+    padding: 15px;
+    height: 725px;
+    width: 410px;
+    background-color: #FFFACC;
+}
+#r-pg-num{
+   text-align: right;
+}
+#l-title {
+    text-align: right;
+    margin-right: 20px;
+}

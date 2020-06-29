@@ -18,6 +18,6 @@ export default (
         <Route path='/post/:postid' component={Post}></Route>
         <Route path='/ask' component={Ask}></Route>
         <Route path='/journal' component={DreamJournal}></Route>
-        <Route path='/entry/:journalid' component={Entry}></Route>
+        <Route path='/entry/:journalid&:journalid2' component={Entry}></Route>
     </Switch>
 )
