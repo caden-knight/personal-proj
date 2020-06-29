@@ -3,6 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './DreamJournal.css';
+import Entry from '../Entry/Entry'
 
 class DreamJournal extends Component {
 	constructor() {

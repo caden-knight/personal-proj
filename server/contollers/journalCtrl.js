@@ -18,10 +18,11 @@ module.exports = {
 	getEntry: async (req, res) => {
 		//access db queries & declare params
 		const db = req.app.get('db');
-		const { entryid } = req.params;
+		const { entryid, entryid2 } = req.params;
+		console.log(entryid, entryid2)
 
 		//call the db query
-		const entry = await db.get_entry(entryid);
+		const entry = await db.get_entry(entryid, entryid2);
 
 		//check if it exists
 		if (entry[0]) {
@@ -36,7 +37,7 @@ module.exports = {
 		const db = req.app.get('db');
 		const id = req.session.user.id;
 		const { lucid, title, date, content, dreamSigns } = req.body;
-
+	
 		//create new entry
 		const newEntry = await db.add_entry(lucid, title, content, dreamSigns, date, id);
 

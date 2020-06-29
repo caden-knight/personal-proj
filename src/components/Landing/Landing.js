@@ -19,7 +19,6 @@ class Landing extends Component {
 		axios
 			.post('/auth/login', { username, password })
 			.then((res) => {
-				console.log(res.data)
 				this.props.loginUser(res.data);
 				this.props.history.push('/home');
 			})
@@ -35,7 +34,6 @@ class Landing extends Component {
 			})
 			.catch((err) => alert(err));
 	}
-
 	continueToggle() {
 		const { continueBtn } = this.state;
 		this.setState({ continueBtn: !continueBtn });
@@ -48,7 +46,6 @@ class Landing extends Component {
 	}
 	render() {
 		const { continueBtn } = this.state;
-		console.log(this.props);
 		return (
 			<div>
 				{continueBtn ? (

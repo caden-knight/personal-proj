@@ -26,7 +26,6 @@ class Header extends React.Component {
 	}
 
 	render() {
-		console.log(this.props);
 		return (
 			<div className="header">
 				<div className="user-info">
