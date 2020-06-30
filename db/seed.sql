@@ -27,11 +27,11 @@ CREATE TABLE "posts" (
 
 CREATE TABLE "questions" (
   "id" SERIAL PRIMARY KEY,
-  "date" timestamp,
-  "title" VARCHAR(100),
-  "question" TEXT,
+  "date" text,
+  "question" VARCHAR(250),
+  "message" TEXT,
   "author_id" INT,
-  "isAnswered" boolean
+  "answered" boolean
 );
 
 ALTER TABLE "dream_journal" ADD FOREIGN KEY ("author_id") REFERENCES "users" ("id");
@@ -39,4 +39,6 @@ ALTER TABLE "dream_journal" ADD FOREIGN KEY ("author_id") REFERENCES "users" ("i
 ALTER TABLE "posts" ADD FOREIGN KEY ("author_id") REFERENCES "users" ("id");
 
 ALTER TABLE "questions" ADD FOREIGN KEY ("author_id") REFERENCES "users";
+
 alter table posts alter column date TYPE text;
+

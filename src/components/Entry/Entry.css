@@ -36,3 +36,20 @@
     text-align: right;
     margin-right: 20px;
 }
+.edit-form {
+    position: absolute;
+    padding: 15px;
+    height: 725px;
+    width: 410px;
+    background-color: #fffde8;
+    box-shadow: 5px 5px 3px gray ;
+}
+#new-title {
+    width: 385px;
+}
+#new-lucid {
+    width: fit-content;
+}
+.new-lucidity {
+    display: flex;
+}

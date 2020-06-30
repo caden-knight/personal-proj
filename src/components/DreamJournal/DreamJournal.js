@@ -18,11 +18,11 @@ class DreamJournal extends Component {
 			lucid: false,
 			next: false
 		};
-		this.nextToggle = this.nextToggle.bind(this)
+		this.nextToggle = this.nextToggle.bind(this);
 	}
 	componentDidMount() {
 		axios
-			.get('/api/entries')
+			.get('/api/user_entries')
 			.then((res) => {
 				this.setState({ entries: res.data });
 			})
@@ -68,21 +68,18 @@ class DreamJournal extends Component {
 	render() {
 		const { entries } = this.state;
 		const { creating } = this.state;
-		console.log(entries);
 		const allEntries = entries.map((entry) => {
-			if (entry.author_id === this.props.userId) {
 				return (
 					<div key={entry.id}>
-						
 						<Link to={`/entry/${entry.id}`}>{entry.title}</Link>
 						<span> {entry.date} </span>
 					</div>
 				);
-			}
-		});		
+		});
+		console.log(entries);
 		return (
 			<div className="parent">
-				{creating && !this.state.next? (
+				{creating && !this.state.next ? (
 					//Add a New Entry Form
 					<form className="new-entry">
 						<input id="title" placeholder="Title Your Dream..." onChange={(title) => this.title(title)} />
@@ -133,12 +130,8 @@ class DreamJournal extends Component {
 						<button onClick={() => this.nextToggle()}>Next</button>
 					</div>
 				) : (
-					<Entry 
-					entries={entries}
-					next={this.nextToggle}
-					/>
+					<Entry next={this.nextToggle} />
 				)}
-				
 			</div>
 		);
 	}

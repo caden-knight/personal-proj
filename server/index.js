@@ -7,6 +7,7 @@ const {SERVER_PORT, SESSION_SECRET, CONNECTION_STRING} = process.env
 const authCtrl = require('./contollers/authCtrl')
 const postCtrl = require('./contollers/postCtrl')
 const journalCtrl = require('./contollers/journalCtrl')
+const questionCtrl = require('./contollers/questionCtrl')
 
 app.use(express.json())
 app.use(session({
@@ -30,11 +31,16 @@ app.put('/api/post/:postId', postCtrl.editPost) //editPost
 app.delete('/api/post/:postId', postCtrl.deletePost) //deletePost
 
 //journal entry endpoints
-app.get('/api/entries', journalCtrl.allEntries) //allEntries
 app.get('/api/entry/:entryid', journalCtrl.getEntry) //getEntry
+app.get('/api/user_entries', journalCtrl.getUserEntries) //getUserEntries
 app.post('/api/entry', journalCtrl.newEntry) //newEntry
 app.put('/api/entry/:entryid', journalCtrl.editEntry) //editEntry
 app.delete('/api/entry/:entryid', journalCtrl.deleteEntry) //deleteEntry
+
+//question endpoints
+app.post('/api/question', questionCtrl.askQuestion) //askQuestion
+// app.get('/api/questions')
+// app.get('/api/question')
 
 massive({
     connectionString: CONNECTION_STRING,

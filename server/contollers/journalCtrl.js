@@ -1,20 +1,5 @@
 //Journal Entries methods
 module.exports = {
-	allEntries: async (req, res) => {
-		//access database
-		const db = req.app.get('db');
-
-		//get all entries
-		const allEntries = await db.get_all_entries();
-
-		//send posts to the frontend and account for errors
-		if (!allEntries[0]) {
-			return res.status(404).send('No entries found');
-		}
-		if (allEntries[0]) {
-			res.status(200).send(allEntries);
-		}
-	},
 	getEntry: async (req, res) => {
 		//access db queries & declare params
 		const db = req.app.get('db');
@@ -29,6 +14,23 @@ module.exports = {
 			res.status(200).send(entry[0]);
 		} else {
 			return res.status(404).send('Entry not found');
+		}
+	},
+	getUserEntries: async (req, res) => {
+		const db = req.app.get('db')
+		const userId = req.session.user.id
+		console.log(req.session.user)
+
+		try {
+			const userEntries = await db.get_entries_by_id(userId)
+			if(!userEntries[0]) {
+				return res.status(404).send('No entries found bruv')				
+			} else {
+				res.status(200).send(userEntries)
+			}
+		} catch(err) {
+			console.log(err)
+			res.sendStatus(500)
 		}
 	},
 	newEntry: async (req, res) => {
