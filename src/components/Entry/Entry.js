@@ -9,8 +9,7 @@ class Entry extends Component {
 		this.state = {
 			left: 1,
 			right: 2,
-			pageCount: 0,
-			
+			pageCount: 0,		
 		};
 	}
 	componentDidMount() {		
@@ -53,14 +52,13 @@ class Entry extends Component {
 			<div className="window">
 					<button onClick={() => this.props.next()}>back to title</button>
 					<button onClick={() => this.pageDec()}>back</button>
-
 			<div className="open-journal">
 				<div id="middle-strip"/>
 				<div className="l-pg">
 					<h1 id="l-title">{leftEntry.title}</h1>
 					<h1 id="l-date"> {leftEntry.date} </h1>
-					<h1 id="l-pg-num">{`${left}`}</h1>
-					<p>{leftEntry.content}</p>
+					<h2 id="l-pg-num">{`${left}`}</h2>
+					<p>{leftEntry.content}</p> 
 				</div>
 
 				{rightEntry ? <div id="r-pg">

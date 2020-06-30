@@ -7,7 +7,7 @@ import Ask from './components/Ask/Ask'
 import Posts from './components/Posts/Posts'
 import Post from './components/Post/Post'
 import DreamJournal from './components/DreamJournal/DreamJournal'
-import Entry from './components/Entry/Entry'
+import SingleEntry from './components/SingleEntry/SingleEntry'
 
 export default (
     <Switch>
@@ -18,6 +18,6 @@ export default (
         <Route path='/post/:postid' component={Post}></Route>
         <Route path='/ask' component={Ask}></Route>
         <Route path='/journal' component={DreamJournal}></Route>
-        <Route path='/entry/:journalid&:journalid2' component={Entry}></Route>
+        <Route path='/entry/:journalid' component={SingleEntry}></Route>
     </Switch>
 )

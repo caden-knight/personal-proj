@@ -73,37 +73,16 @@ class DreamJournal extends Component {
 			if (entry.author_id === this.props.userId) {
 				return (
 					<div key={entry.id}>
+						
 						<Link to={`/entry/${entry.id}`}>{entry.title}</Link>
 						<span> {entry.date} </span>
 					</div>
 				);
 			}
-		});
-
+		});		
 		return (
 			<div className="parent">
-				{!this.state.next && !creating ? (
-					<div className="journal-div">
-						<div className="journal">
-							<h1 className="journal-title">{this.props.username}'s Dream Journal</h1>
-						</div>
-						<div className="pages" />
-						<div className="contents">
-							<h1 className="toc">Table of Contents</h1>
-							<h2 className="title"> {allEntries} </h2>
-						</div>
-						<button id="create-btn" onClick={() => this.creatingToggle()}>
-							Record a Dream
-						</button>
-						<button onClick={() => this.nextToggle()}>Next</button>
-					</div>
-				) : (
-					<Entry 
-					entries={entries}
-					next={this.nextToggle}
-					/>
-				)}
-				{creating ? (
+				{creating && !this.state.next? (
 					//Add a New Entry Form
 					<form className="new-entry">
 						<input id="title" placeholder="Title Your Dream..." onChange={(title) => this.title(title)} />
@@ -138,6 +117,28 @@ class DreamJournal extends Component {
 						</button>
 					</form>
 				) : null}
+				{!this.state.next && !creating ? (
+					<div className="journal-div">
+						<div className="journal">
+							<h1 className="journal-title">{this.props.username}'s Dream Journal</h1>
+						</div>
+						<div className="pages" />
+						<div className="contents">
+							<h1 className="toc">Table of Contents</h1>
+							<h2 className="title"> {allEntries} </h2>
+						</div>
+						<button id="create-btn" onClick={() => this.creatingToggle()}>
+							Record a Dream
+						</button>
+						<button onClick={() => this.nextToggle()}>Next</button>
+					</div>
+				) : (
+					<Entry 
+					entries={entries}
+					next={this.nextToggle}
+					/>
+				)}
+				
 			</div>
 		);
 	}

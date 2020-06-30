@@ -31,7 +31,7 @@ app.delete('/api/post/:postId', postCtrl.deletePost) //deletePost
 
 //journal entry endpoints
 app.get('/api/entries', journalCtrl.allEntries) //allEntries
-app.get('/api/entry/:entryid&:entryid2', journalCtrl.getEntry) //getEntry
+app.get('/api/entry/:entryid', journalCtrl.getEntry) //getEntry
 app.post('/api/entry', journalCtrl.newEntry) //newEntry
 app.put('/api/entry/:entryid', journalCtrl.editEntry) //editEntry
 app.delete('/api/entry/:entryid', journalCtrl.deleteEntry) //deleteEntry

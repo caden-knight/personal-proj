@@ -18,15 +18,15 @@ module.exports = {
 	getEntry: async (req, res) => {
 		//access db queries & declare params
 		const db = req.app.get('db');
-		const { entryid, entryid2 } = req.params;
-		console.log(entryid, entryid2)
+		const { entryid } = req.params;
+		console.log(entryid)
 
 		//call the db query
-		const entry = await db.get_entry(entryid, entryid2);
+		const entry = await db.get_entry(entryid);
 
 		//check if it exists
 		if (entry[0]) {
-			res.status(200).send(entry);
+			res.status(200).send(entry[0]);
 		} else {
 			return res.status(404).send('Entry not found');
 		}

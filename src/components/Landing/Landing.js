@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Landing.css'
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { loginUser } from '../../ducks/reducer';
@@ -47,10 +48,11 @@ class Landing extends Component {
 	render() {
 		const { continueBtn } = this.state;
 		return (
-			<div>
+			<div className="Landing">
 				{continueBtn ? (
-					<form className="login-box">
-						<h1>Landing</h1>
+					<div className="login-box">
+					<form className="login">
+						<h1 id="login-prompt">Login</h1>
 						<input
 							className="username-inp"
 							placeholder="username"
@@ -61,7 +63,7 @@ class Landing extends Component {
 							placeholder="password"
 							type="password"
 							onChange={(password) => this.passwordChange(password)}
-						/>
+						/>						
 						<button className="login-btn" onClick={() => this.login()}>
 							Login
 						</button>
@@ -69,10 +71,11 @@ class Landing extends Component {
 							Register
 						</button>
 					</form>
+					</div>
 				) : (
-					<div>
+					<div className="welcome">
 						<h1>MAKE YOUR DREAMS A REALITY</h1>
-						<button onClick={() => this.continueToggle()}>CONTINUE</button>
+						<button id="continue-btn" onClick={() => this.continueToggle()}>CONTINUE</button>
 					</div>
 				)}
 			</div>
