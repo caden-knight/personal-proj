@@ -4,7 +4,6 @@ module.exports = {
 		//access db queries & declare params
 		const db = req.app.get('db');
 		const { entryid } = req.params;
-		console.log(entryid)
 
 		//call the db query
 		const entry = await db.get_entry(entryid);
@@ -19,7 +18,6 @@ module.exports = {
 	getUserEntries: async (req, res) => {
 		const db = req.app.get('db')
 		const userId = req.session.user.id
-		console.log(req.session.user)
 
 		try {
 			const userEntries = await db.get_entries_by_id(userId)
@@ -68,9 +66,7 @@ module.exports = {
             return res.status(404).send('No post to edit')
         } else {
             res.status(200).send(editedPost)
-        }
-        
-
+        }        
 	},
 	deleteEntry: async (req, res) => {
 		//access database queries

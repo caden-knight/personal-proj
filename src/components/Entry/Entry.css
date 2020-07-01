@@ -9,13 +9,6 @@
     background-color: #3f3f3f;
     overflow: hidden;
 }
-
-.l-pg {
-    padding: 15px;
-    height: 725px;
-    width: 425px;
-    background-color: #FFFACC;
-}
 #middle-strip {
     position: absolute;
     margin: auto;
@@ -23,7 +16,7 @@
     width: 10px;
     height: 725px;
 }
-#r-pg {
+#r-pg, .l-pg {
     padding: 15px;
     height: 725px;
     width: 410px;
@@ -32,10 +25,7 @@
 #r-pg-num{
    text-align: right;
 }
-#l-title {
-    text-align: right;
-    margin-right: 20px;
-}
+
 .edit-form {
     position: absolute;
     padding: 15px;
@@ -44,12 +34,13 @@
     background-color: #fffde8;
     box-shadow: 5px 5px 3px gray ;
 }
-#new-title {
+#new-title, #new-dream-signs, #new-content {
     width: 385px;
+    flex-direction: column;
 }
 #new-lucid {
     width: fit-content;
 }
-.new-lucidity {
-    display: flex;
+#new-content {
+    height: 200px;
 }
