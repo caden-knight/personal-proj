@@ -27,25 +27,55 @@ class Header extends React.Component {
 
 	render() {
 		return (
-			<div className="header">
-				<div className="user-info">
-					<img className="prof-pic" src={this.props.profilePic} alt="profile pic" />
-					<h1 className="username">{this.props.username}</h1>
-				</div>
-				<div className="links">
-					<Link to="/home" id="home">Home</Link>
-					<Link to="/about">About </Link>
-					<Link to="/ask">Ask </Link>
-					<Link to="/posts">Posts </Link>
-					<Link to="/journal">Dream Journal </Link>
-					<button
-						onClick={() => {
-							this.logout();
-						}}
-					>
-						Logout
-					</button>
-				</div>
+			<div className="headers">
+				{!this.props.isAdmin ? (
+					<div className="user-hdr">
+						<div className="user-info">
+							<img className="prof-pic" src={this.props.profilePic} alt="profile pic" />
+							<h1 className="username">{this.props.username}</h1>
+						</div>
+						<div className="links-header">
+							<Link to="/home" id="home">
+								Home
+							</Link>
+							<Link to="/about">About </Link>
+							<Link to="/ask">Ask </Link>
+							<Link to="/posts">Posts </Link>
+							<Link to="/journal">Dream Journal </Link>
+							<button
+								onClick={() => {
+									this.logout();
+								}}
+							>
+								Logout
+							</button>
+						</div>
+					</div>
+				) : (
+					<div className="admin-hdr">
+						<div className="user-info">
+							<img className="prof-pic" src={this.props.profilePic} alt="profile pic" />
+							<h1 className="username">{this.props.username}</h1>
+						</div>
+						<div className="links">
+							<Link to="/home" id="home">
+								Home
+							</Link>
+							<Link to="/about">About </Link>
+							<Link to="/ask">Ask </Link>
+							<Link to="/posts">Posts </Link>
+							<Link to="/journal">Dream Journal </Link>
+							<Link to='/questions'>Answer Questions</Link>
+							<button
+								onClick={() => {
+									this.logout();
+								}}
+							>
+								Logout
+							</button>
+						</div>
+					</div>
+				)}
 			</div>
 		);
 	}

@@ -3,11 +3,12 @@ const express = require('express');
 const session = require('express-session');
 const massive = require('massive');
 const app = express()
-const {SERVER_PORT, SESSION_SECRET, CONNECTION_STRING} = process.env
+const {SERVER_PORT, SESSION_SECRET, CONNECTION_STRING, EMAIL, PASSWORD} = process.env
 const authCtrl = require('./contollers/authCtrl')
 const postCtrl = require('./contollers/postCtrl')
 const journalCtrl = require('./contollers/journalCtrl')
 const questionCtrl = require('./contollers/questionCtrl')
+
 
 app.use(express.json())
 app.use(session({
@@ -39,8 +40,9 @@ app.delete('/api/entry/:entryid', journalCtrl.deleteEntry) //deleteEntry
 
 //question endpoints
 app.post('/api/question', questionCtrl.askQuestion) //askQuestion
-// app.get('/api/questions')
-// app.get('/api/question')
+app.get('/api/questions', questionCtrl.getQuestions) //getQuestions
+app.get('/api/question/:id', questionCtrl.getQuestion) //getQuestion
+app.put('/api/answer/:id', questionCtrl.answerQuestion) //answerQuestion
 
 massive({
     connectionString: CONNECTION_STRING,

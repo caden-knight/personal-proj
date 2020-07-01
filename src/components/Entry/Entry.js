@@ -136,7 +136,7 @@ class Entry extends Component {
 		console.log('left', leftEntry);
 		console.log('right', rightEntry);
 		console.log(userEntries);
-		console.log(this.state);
+		console.log(this.props);
 		return (
 			<div className="window">
 				<button onClick={() => this.props.next()}>back to title</button>

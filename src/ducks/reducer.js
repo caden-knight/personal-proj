@@ -2,6 +2,7 @@ const initialState = {
 	username: null,
 	userId: 0,
 	isLoggedIn: false,
+	isAdmin: false,
 	profilePic: null
 };
 
@@ -32,7 +33,8 @@ export default function(state = initialState, action) {
 				...state, 
 				username: payload.username, 
 				userId: payload.id,
-				profilePic: payload.prof_pic, 
+				profilePic: payload.prof_pic,
+				isAdmin: payload.admin, 
 				isLoggedIn: true 
 			}
 		case LOGOUT_USER:	

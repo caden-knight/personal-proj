@@ -41,4 +41,11 @@ ALTER TABLE "posts" ADD FOREIGN KEY ("author_id") REFERENCES "users" ("id");
 ALTER TABLE "questions" ADD FOREIGN KEY ("author_id") REFERENCES "users";
 
 alter table posts alter column date TYPE text;
+alter table questions add column answer text;
+alter table users add column email varchar(120);
+alter table users drop column phone;
+ALTER TABLE users ALTER COLUMN username SET NOT NULL;
+ALTER TABLE users ALTER COLUMN password SET NOT NULL;
+ALTER TABLE users ALTER COLUMN email SET NOT NULL;
+
 
