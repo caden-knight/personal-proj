@@ -86,10 +86,38 @@ class Entry extends Component {
 			this.leftEditToggle();
 		});
 	}
-	deleteEntry() {
-		const {left, right, userEntries} = this.state
-		
+	rightDelete(){
+		const {userEntries, right} = this.state
+		const rightEntry = userEntries[right - 1]
+		axios.delete(`/api/entry/${rightEntry.id}`).then((res) => {
+			alert('right Post deleted');
+			this.componentDidMount();
+		});
 	}
+	leftDelete(){
+		const {userEntries, left} = this.state
+		const leftEntry = userEntries[left - 1]
+		axios.delete(`/api/entry/${leftEntry.id}`).then((res) => {
+			alert('left Post deleted');
+			this.componentDidMount();
+		});
+	}
+	// deleteEntry() {
+	// 	const { left, right, userEntries } = this.state;
+	// 	const leftEntry = userEntries[left - 1];
+	// 	const rightEntry = userEntries[right - 1];
+	// 	if (left % 2 !== 0) {
+	// 		axios.delete(`/api/entry/${leftEntry.id}`).then((res) => {
+	// 			alert('left Post deleted');
+	// 			this.componentDidMount();
+	// 		});
+	// 	} else if (right % 2 === 0) {
+	// 		axios.delete(`/api/entry/${rightEntry.id}`).then((res) => {
+	// 			alert('right Post deleted');
+	// 			this.componentDidMount();
+	// 		});
+	// 	}
+	// }
 	render() {
 		const {
 			newLucid,
@@ -124,6 +152,9 @@ class Entry extends Component {
 							<button onClick={() => this.pageDec()}>flip back</button>
 							<button id="left-edit" onClick={() => this.leftEditToggle()}>
 								Edit Page
+							</button>
+							<button onClick={() => this.leftDelete()} id="l-del">
+								Delete Entry
 							</button>
 						</div>
 					) : (
@@ -172,6 +203,7 @@ class Entry extends Component {
 							<button onClick={() => this.rightEditToggle()} id="edit-btn">
 								Edit Page
 							</button>
+							<button onClick={() => this.rightDelete()} id="r-del">Delete Entry</button>
 							<button onClick={() => this.pageInc()}>flip page</button>
 						</div>
 					) : (

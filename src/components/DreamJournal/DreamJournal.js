@@ -28,9 +28,13 @@ class DreamJournal extends Component {
 			})
 			.catch((err) => console.log(err));
 	}
+
 	nextToggle() {
 		const { next } = this.state;
 		this.setState({ next: !next });
+		if (next) {
+			this.componentDidMount();
+		}
 	}
 	creatingToggle() {
 		const { creating } = this.state;
@@ -69,12 +73,12 @@ class DreamJournal extends Component {
 		const { entries } = this.state;
 		const { creating } = this.state;
 		const allEntries = entries.map((entry) => {
-				return (
-					<div key={entry.id}>
-						<Link to={`/entry/${entry.id}`}>{entry.title}</Link>
-						<span> {entry.date} </span>
-					</div>
-				);
+			return (
+				<div key={entry.id}>
+					<Link to={`/entry/${entry.id}`}>{entry.title}</Link>
+					<span> {entry.date} </span>
+				</div>
+			);
 		});
 		console.log(entries);
 		return (
