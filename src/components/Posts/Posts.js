@@ -1,6 +1,19 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+	Form,
+	Input,
+	FormGroup,
+	Label,
+	Button,
+	ListGroup,
+	ListGroupItem,
+	ListGroupItemHeading,
+	ListGroupItemText,
+	Col
+} from 'reactstrap';
 import './Posts.css';
 
 class Posts extends Component {
@@ -21,7 +34,7 @@ class Posts extends Component {
 		axios
 			.get('/api/posts')
 			.then((res) => {
-				if(this._isMounted) {
+				if (this._isMounted) {
 					this.setState({ posts: res.data });
 				}
 			})
@@ -61,38 +74,57 @@ class Posts extends Component {
 		posts.sort((a, b) => b.id - a.id);
 		const allPosts = posts.map((post) => {
 			return (
-				<div key={post.id} className="post-boxes">
-					<h1 className="title">{post.title}</h1>
-					<h2 className="author">{post.username}</h2>
-					<h2 className="date">Posted on {post.date}</h2>
-					<h3 className="content">{post.content}</h3>
-				</div>
+				<ListGroupItem key={post.id}>
+					<ListGroupItemHeading className="title">{post.title}</ListGroupItemHeading>
+					<ListGroupItemText className="author">
+						Posted on {post.date}
+						<br />
+						By {post.username}
+						<hr />
+						{post.content}
+					</ListGroupItemText>
+				</ListGroupItem>
 			);
 		});
 
 		return (
 			<div className="top-div">
-				Posts
 				{!creatingNew ? (
 					<div className="post-view">
-						<button onClick={() => this.creatingToggle()}>New post</button>
-						<input onClick={() => this.myPostsToggle()} type="checkbox" id="my-posts" />
-						<label htmlFor="my-posts">My Posts</label>
-						<div className="all-posts">{allPosts}</div>
+						<h1 className="text-center">The Lucid Community</h1>
+						<h5 className="text-center">Don't be shy, say something!</h5>
+						{/* <input onClick={() => this.myPostsToggle()} type="checkbox" id="my-posts" /> */}
+						{/* <label htmlFor="my-posts">My Posts</label> */}
+						<ListGroup className="posts">
+						<Col sm={{ size: 'auto', offset: 1 }}>
+							<Button className="float-right" color="success" id="new-btn" onClick={() => this.creatingToggle()}>
+								New Post
+							</Button>
+						</Col>
+							{allPosts}
+						</ListGroup>
 					</div>
 				) : (
-					<form>
-						<input placeholder="title" onChange={(title) => this.titleChange(title)} />
-						<textarea
-							onChange={(content) => this.contentChange(content)}
-							placeholder="Share your experiences here"
-							type="text"
-						/>
-						<button onClick={() => this.newPost()} type="submit">
+					<Form id="new-post">
+						<h1>Create a Post</h1>
+						<FormGroup>
+							<Label for="title">Name Your Post</Label>
+							<Input placeholder="title" id="title" onChange={(title) => this.titleChange(title)} />
+						</FormGroup>
+						<FormGroup>
+							<Label for="content">Compose your Post</Label>
+							<Input
+								id="content"
+								onChange={(content) => this.contentChange(content)}
+								placeholder="Share your experiences or questions here"
+								type="textarea"
+							/>
+						</FormGroup>
+						<Button color="success" block onClick={() => this.newPost()} type="submit">
 							Post
-						</button>
-						<button onClick={() => this.creatingToggle()}>Cancel</button>
-					</form>
+						</Button>
+						<Button color="danger" block onClick={() => this.creatingToggle()}>Cancel</Button>
+					</Form>
 				)}
 			</div>
 		);

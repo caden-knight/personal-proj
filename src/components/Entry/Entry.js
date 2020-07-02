@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import './Entry.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button, ButtonGroup, Form, FormGroup, Label, Input} from 'reactstrap';
 
 class Entry extends Component {
 	constructor() {
@@ -102,22 +104,6 @@ class Entry extends Component {
 			this.componentDidMount();
 		});
 	}
-	// deleteEntry() {
-	// 	const { left, right, userEntries } = this.state;
-	// 	const leftEntry = userEntries[left - 1];
-	// 	const rightEntry = userEntries[right - 1];
-	// 	if (left % 2 !== 0) {
-	// 		axios.delete(`/api/entry/${leftEntry.id}`).then((res) => {
-	// 			alert('left Post deleted');
-	// 			this.componentDidMount();
-	// 		});
-	// 	} else if (right % 2 === 0) {
-	// 		axios.delete(`/api/entry/${rightEntry.id}`).then((res) => {
-	// 			alert('right Post deleted');
-	// 			this.componentDidMount();
-	// 		});
-	// 	}
-	// }
 	render() {
 		const {
 			newLucid,
@@ -144,103 +130,114 @@ class Entry extends Component {
 					<div id="middle-strip" />
 					{leftEntry ? (
 						<div className="l-pg">
-							<h2 id="l-pg-num">{`${left}`}</h2>
-							<h1 id="l-title">{leftEntry.title}</h1>
-							<h1 id="l-date"> {leftEntry.date} </h1>
-							<p>{leftEntry.content}</p>
-							<h3> {leftEntry.dreamSigns} </h3>
-							<button onClick={() => this.pageDec()}>flip back</button>
-							<button id="left-edit" onClick={() => this.leftEditToggle()}>
+							<ButtonGroup className="journal-btns">
+							<Button color="primary" onClick={() => this.pageDec()}>flip back</Button>
+							<Button color="warning" id="left-edit" onClick={() => this.leftEditToggle()}>
 								Edit Page
-							</button>
-							<button onClick={() => this.leftDelete()} id="l-del">
+							</Button>
+							<Button color="danger" onClick={() => this.leftDelete()} id="l-del">
+								
 								Delete Entry
-							</button>
+							</Button>
+							</ButtonGroup>
+							<h4 id="l-pg-num">{`${left}`}</h4>
+							<h3 id="l-title">{leftEntry.title}</h3>
+							<h4 id="l-date"> {leftEntry.date} </h4>
+							<h5>{leftEntry.content}</h5>
+							<h3> {leftEntry.dreamSigns} </h3>
 						</div>
 					) : (
 						<div className="l-pg" />
 					)}
 					{leftEntry && leftEditing ? (
-						<form className="edit-form">
-							<input
+						<Form className="edit-form">
+							<Input
 								id="new-title"
 								onChange={(title) => this.editTitle(title)}
 								defaultValue={leftEntry.title}
 							/>
-							<div className="new-lucidity">
-								<label htmlFor="new-lucid">Lucidity</label>
-								<input onClick={() => this.editLucid()} id="new-lucid" type="checkbox" />
-							</div>
-							<textarea
+							<FormGroup className="new-lucidity">
+								<Label for="new-lucid">Lucidity</Label>
+								<Input onClick={() => this.editLucid()} id="new-lucid" type="checkbox" />
+							</FormGroup>
+							<Input
+								type="textarea"
 								id="new-content"
 								onChange={(content) => this.editContent(content)}
 								defaultValue={leftEntry.content}
 							/>
-							<input
+							<Input
 								onChange={(signs) => this.editDreamSigns(signs)}
 								id="new-dream-signs"
 								defaultValue={leftEntry.dreamSigns}
 							/>
-							<button
+							<Button
+							color="success"
 								id="edit-submit"
 								onClick={() =>
 									this.editEntryLeft(newLucid, newTitle, newContent, newDreamSigns, leftEntry.id)}
 							>
 								Complete
-							</button>
-							<button id="cancel-btn" onClick={() => this.leftEditToggle()}>
+							</Button>
+							<Button id="cancel-btn" onClick={() => this.leftEditToggle()}>
 								Nevermind
-							</button>
-						</form>
+							</Button>
+						</Form>
 					) : null}
 
 					{rightEntry ? (
 						<div id="r-pg">
-							<h1 id="r-pg-num">{`${right}`}</h1>
-							<h1 id="r-title"> {rightEntry.title} </h1>
-							<h1 id="r-date"> {rightEntry.date} </h1>
-							<p> {rightEntry.content} </p>
-							<button onClick={() => this.rightEditToggle()} id="edit-btn">
+							<ButtonGroup id="r-pg-btns">
+								
+							<Button color="danger" onClick={() => this.rightDelete()} id="r-del">Delete Entry</Button>
+							<Button color="warning" onClick={() => this.rightEditToggle()} id="edit-btn">
 								Edit Page
-							</button>
-							<button onClick={() => this.rightDelete()} id="r-del">Delete Entry</button>
-							<button onClick={() => this.pageInc()}>flip page</button>
+							</Button>
+							<Button color="primary" onClick={() => this.pageInc()}>flip page</Button>
+							</ButtonGroup>
+							<h4 id="r-pg-num">{`${right}`}</h4>
+							<h3 id="r-title"> {rightEntry.title} </h3>
+							<h4 id="r-date"> {rightEntry.date} </h4>
+							<h5> {rightEntry.content} </h5>
 						</div>
 					) : (
 						<div id="r-pg" />
 					)}
 					{rightEntry && rightEditing ? (
-						<form className="edit-form">
-							<input
+						<Form className="edit-form">
+							<Input
 								id="new-title"
 								onChange={(title) => this.editTitle(title)}
 								defaultValue={rightEntry.title}
 							/>
-							<div className="new-lucidity">
+							<FormGroup className="new-lucidity">
 								<label htmlFor="new-lucid">Lucidity</label>
 								<input onClick={() => this.editLucid()} id="new-lucid" type="checkbox" />
-							</div>
-							<textarea
+							</FormGroup>
+							<Input
+								type="textarea"
 								id="new-content"
 								onChange={(content) => this.editContent(content)}
 								defaultValue={rightEntry.content}
 							/>
-							<input
+							<Input
 								onChange={(signs) => this.editDreamSigns(signs)}
 								id="new-dream-signs"
 								defaultValue={rightEntry.dreamSigns}
+								placeholder="Dream Signs"
 							/>
-							<button
+							<Button
+							color="success"
 								id="edit-submit"
 								onClick={() =>
 									this.editEntryRight(newLucid, newTitle, newContent, newDreamSigns, rightEntry.id)}
 							>
 								Complete
-							</button>
-							<button id="cancel-btn" onClick={() => this.rightEditToggle()}>
+							</Button>
+							<Button id="cancel-btn" onClick={() => this.rightEditToggle()}>
 								Nevermind
-							</button>
-						</form>
+							</Button>
+						</Form>
 					) : null}
 				</div>
 			</div>

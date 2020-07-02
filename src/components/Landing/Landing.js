@@ -99,44 +99,60 @@ class Landing extends Component {
 					</Form>
 				) : null}
 				{continueBtn && register ? (
-					<form className="reg-form">
+					<Form className="reg-form">
 						<h1 id="reg-prompt">Sign Up</h1>
-						<input
+						<FormGroup>
+
+						<Label for='reg-email'>Choose an Email</Label>
+						<Input
 							id="reg-email"
 							type="email"
 							placeholder="Email..."
 							onChange={(email) => this.emailChange(email)}
-						/>
-						<input
+							/>
+							</FormGroup>
+							<FormGroup>
+
+							<Label for="reg-username">Create a Username</Label>
+						<Input
 							className="reg-username"
-							placeholder="Choose a username..."
+							placeholder="Username..."
 							onChange={(username) => this.usernameChange(username)}
-						/>
-						<input
+							/>
+							</FormGroup>
+							<FormGroup>
+
+							<Label for="profile-pic">Choose a profile picture</Label>
+						<Input
 							id="profile-pic"
-							placeholder="Copy image address and paste it here..."
+							placeholder="Copy an image address and paste it here..."
 							onChange={(profilePic) => this.profilePicChange(profilePic)}
-						/>
-						<input
+							/>
+							</FormGroup>
+							<FormGroup>
+
+							<Label for="reg-password">Create a password</Label>
+						<Input
 							className="reg-password"
 							placeholder="Create a password..."
 							type="password"
 							onChange={(password) => this.passwordChange(password)}
-						/>
-						<button className="reg-acct" onClick={() => this.register()}>
-							Register Account
-						</button>
-						<button id="reg-cancel" onClick={() => this.registerToggle()}>
+							/>
+							</FormGroup>
+						<Button id="reg-cancel" onClick={() => this.registerToggle()}>
 							Back to Login
-						</button>
-					</form>
+						</Button>
+						<Button className="float-right" color="success" className="reg-acct" onClick={() => this.register()}>
+							Register Account
+						</Button>
+					</Form>
 				) : null}
 				{!continueBtn ? (
 					<div className="land-msg">
-						<h1>MAKE YOUR DREAMS A REALITY</h1>
-						<button id="continue-btn" onClick={() => this.continueToggle()}>
+						<h1 id="dream-msg" className="text-center">MAKE YOUR DREAMS A REALITY</h1>
+						<Button color="info" size="lg" id="continue-btn" onClick={() => this.continueToggle()}>
 							CONTINUE
-						</button>
+						</Button>
 					</div>
 				) : null}
 			</div>

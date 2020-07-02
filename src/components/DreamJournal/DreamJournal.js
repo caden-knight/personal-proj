@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button, ButtonGroup, Form, Input, FormGroup, Label } from 'reactstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './DreamJournal.css';
@@ -16,7 +18,8 @@ class DreamJournal extends Component {
 			date: '',
 			dreamSigns: '',
 			lucid: false,
-			next: false
+			next: false,
+			entryDone: true
 		};
 		this.nextToggle = this.nextToggle.bind(this);
 	}
@@ -28,7 +31,9 @@ class DreamJournal extends Component {
 			})
 			.catch((err) => console.log(err));
 	}
-
+	entryDoneToggle() {
+		this.setState({ entryDone: !this.state.entryDone });
+	}
 	nextToggle() {
 		const { next } = this.state;
 		this.setState({ next: !next });
@@ -70,8 +75,7 @@ class DreamJournal extends Component {
 			.catch((err) => console.log(err));
 	}
 	render() {
-		const { entries } = this.state;
-		const { creating } = this.state;
+		const { entries, creating, entryDone } = this.state;
 		const allEntries = entries.map((entry) => {
 			return (
 				<div key={entry.id}>
@@ -85,53 +89,73 @@ class DreamJournal extends Component {
 			<div className="parent">
 				{creating && !this.state.next ? (
 					//Add a New Entry Form
-					<form className="new-entry">
-						<input id="title" placeholder="Title Your Dream..." onChange={(title) => this.title(title)} />
-						<input type="checkbox" id="lucid" onClick={() => this.lucidToggle()} />
-						<label id="lucid-label" htmlFor="lucid">
-							Lucid Dream
-						</label>
-
-						<input
-							type="date"
-							id="date"
-							placeholder="When did you have the dream..."
-							onChange={(date) => this.date(date)}
-						/>
-
-						<textarea
-							id="content"
-							placeholder="What happened in your dream..."
-							onChange={(content) => this.content(content)}
-						/>
-						<textarea
-							id="dream-signs"
-							placeholder="What patterns do you notice..."
-							onChange={(signs) => this.dreamSigns(signs)}
-						/>
-						<button id="record-btn" onClick={() => this.addEntry()}>
-							Record My Dream!
-						</button>
-
-						<button id="cancel-btn" onClick={() => this.creatingToggle()}>
+					<Form className="new-entry">
+						<FormGroup>
+							<Label for="title">Create a title for your entry</Label>
+							<Input
+								id="title"
+								placeholder="Title Your Dream..."
+								onChange={(title) => this.title(title)}
+							/>
+						</FormGroup>
+						<FormGroup>
+							<Label id="lucid-label" for="lucid">
+								Was it Lucid?
+							</Label>
+							<Input type="checkbox" id="lucidCheck" onClick={() => this.lucidToggle()} />
+						</FormGroup>
+						<FormGroup>
+							<Label for="date">Date you had the dream</Label>
+							<Input
+								type="date"
+								id="date"
+								placeholder="When did you have the dream..."
+								onChange={(date) => this.date(date)}
+							/>
+						</FormGroup>
+						<FormGroup>
+							<Label for="content">Describe the dream</Label>
+							<Input
+								type="textarea"
+								id="content"
+								placeholder="Write about your dream..."
+								onChange={(content) => this.content(content)}
+							/>
+						</FormGroup>
+						<FormGroup>
+							<Label for="dream-signs">Notice any patterns?</Label>
+							<Input
+								type="textarea"
+								id="dream-signs"
+								placeholder="Any recurring themes..."
+								onChange={(signs) => this.dreamSigns(signs)}
+							/>
+						</FormGroup>
+						<Button color="danger" id="cancel-btn" onClick={() => this.creatingToggle()}>
 							Cancel
-						</button>
-					</form>
+						</Button>
+						<Button color="warning" className="float-right" id="record-btn" onClick={() => this.addEntry()}>
+							Record My Dream!
+						</Button>
+
+					</Form>
 				) : null}
 				{!this.state.next && !creating ? (
-					<div className="journal-div">
-						<div className="journal">
-							<h1 className="journal-title">{this.props.username}'s Dream Journal</h1>
+					<div>
+						<div className="journal-div">
+							<div className="journal">
+								<Button id="create-btn" onClick={() => this.creatingToggle()}>
+									Record a Dream
+								</Button>
+						<Button className="float-right" onClick={() => this.nextToggle()}>Next</Button>
+								<h1 className="journal-title">{this.props.username}'s Dream Journal</h1>
+							</div>
+							<div className="pages" />
+							<div className="contents">
+								<h1 className="toc">Table of Contents</h1>
+								<h5 className="title"> {allEntries} </h5>
+							</div>
 						</div>
-						<div className="pages" />
-						<div className="contents">
-							<h1 className="toc">Table of Contents</h1>
-							<h2 className="title"> {allEntries} </h2>
-						</div>
-						<button id="create-btn" onClick={() => this.creatingToggle()}>
-							Record a Dream
-						</button>
-						<button onClick={() => this.nextToggle()}>Next</button>
 					</div>
 				) : (
 					<Entry next={this.nextToggle} />

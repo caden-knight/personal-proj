@@ -44,3 +44,7 @@
 #new-content {
     height: 200px;
 }
+.journal-btns, #r-pg-btns{
+    margin-bottom: 20px;
+}
+

@@ -14,9 +14,6 @@ import {
 	ModalBody,
 	ModalFooter,
 	Input,
-	Label,
-	Form,
-	FormGroup,
 	Alert
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';

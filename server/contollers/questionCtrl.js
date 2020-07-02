@@ -12,8 +12,11 @@ module.exports = {
 		//send request to db
 		try {
 			const userQuestion = await db.ask(question, message, id);
+			console.log(userQuestion)
 			if (!userQuestion[0]) {
 				return res.status(409).send('Could not send question');
+			} else {
+				res.sendStatus(200)
 			}
 		} catch (err) {
 			console.log(err);
