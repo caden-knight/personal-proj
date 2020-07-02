@@ -1,33 +1,17 @@
-.header {
-    display: inline-flex;
-    height: 10vh;
-    width: 100vw;
-    background-color: cadetblue;
-    padding: 20px;
-}
+
 .user-info {
-    position: relative;
-    right: 10px;
     display: inline-flex;
-    justify-content: center;
     align-items: center;
 }
 .prof-pic {
-    height: 7vh;
+    height: 40px;
+    width: 40px;
     border-radius: 50%;
     margin-right: 10px;
 }
 .username {
     font-size:20px;
 }
-.links {
-    margin: auto;
-}
-
-#home {
-    text-align: right;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    color: khaki;
+#moon-pic{
+    margin-right: 15px;
 }

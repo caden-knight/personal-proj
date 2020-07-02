@@ -63,7 +63,7 @@ export default class Ask extends Component {
 								Cotton-Eye-Joe
 							</label>
 						</div>
-						<div className="btn">
+						<div className="btn-div">
 							<button id="ask-btn" onClick={() => this.askingToggle()}>
 								Submit a Question
 							</button>

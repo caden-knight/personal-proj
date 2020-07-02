@@ -1,8 +1,25 @@
 import React from 'react';
 import './Answer.css';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+import {
+	Card,
+	Button,
+	CardTitle,
+	CardText,
+	Row,
+	Col,
+	Modal,
+	ModalHeader,
+	ModalBody,
+	ModalFooter,
+	Input,
+	Label,
+	Form,
+	FormGroup,
+	Alert
+} from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Answer extends React.Component {
 	constructor() {
@@ -11,91 +28,128 @@ class Answer extends React.Component {
 			questions: [],
 			question: null,
 			answerQuestion: false,
-			answer: ''
+			answer: '',
+			answered: false,
+			error: false
 		};
 	}
 	componentDidMount() {
 		axios.get('/api/questions').then((res) => {
-			this.setState({ questions: res.data });
+			this.setState({
+				questions: res.data
+			});
 		});
 	}
-	async answerToggle(questionid) {
+	errorToggle() {
+		this.setState({error: false})
+	}
+	answeredToggle() {
+		this.setState({ answered: false });
+	}
+	answerToggle(questionid) {
 		const { answerQuestion } = this.state;
-		const { questions } = this.state;
-		this.setState({ answerQuestion: !answerQuestion });
+		this.setState({ answerQuestion: !answerQuestion })
 		if (!answerQuestion) {
 			this.componentDidMount();
 		}
 		if (questionid) {
 			console.log(questionid);
-			await axios
+			axios
 				.get(`/api/question/${questionid}`)
 				.then((res) => {
 					this.setState({ question: res.data });
 					this.componentDidMount();
 				})
-				.catch((err) => console.log(err));
+				.catch((err) => {
+					console.log(err)
+					this.setState({error: true})
+				});
 		}
 	}
 	answerChange(answer) {
 		this.setState({ answer: answer.target.value });
-    }
-    answer(answer,) {
-        axios.post()
-    }
+	}
+	answer(questionid) {
+		const { answer } = this.state;
+		axios.put(`/api/answer/${questionid}`, { answer }).then((res) => {
+			this.setState({answered: true});
+			this.answerToggle();
+			this.componentDidMount();
+		});
+	}
 
 	render() {
-		const { questions } = this.state;
-		const { question } = this.state;
+		const { questions, answered, question, error } = this.state;	
 		console.log(this.state.question);
 		console.log(questions);
 		const { answerQuestion } = this.state;
 		const unansweredQuestions = questions.map((question) => {
 			if (!question.answered) {
+				console.log(question.id);
 				return (
-					<div key={question.id} className="map-questions">
-						<div className="q-title">
-							<span id="id">Question-ID# {question.id} </span>
-							<h2 id="asked">Asked on: {question.date}</h2>
-							<Link to id="question">
-								{' '}
-								{question.question}{' '}
-							</Link>
-						</div>
-						<div className="q-content">
-							<h1 id="info">Additional Information</h1>
-							<p id="message"> {question.message} </p>
-						</div>
-						<button onClick={() => this.answerToggle(question.id)} id="answer-btn">
-							Answer Question
-						</button>
-					</div>
+					<Col key={question.id} sm="3">
+						<Card body>
+							<CardTitle>
+								<h3>Asked on: {question.date}</h3>
+								<hr />
+								<h3>By: {question.username}</h3>
+							</CardTitle>
+
+							<CardText />
+							<h5>{question.question}</h5>
+							<hr />
+							<h5>{question.message}</h5>
+							<Button
+								outline
+								color="success"
+								onClick={() => this.answerToggle(question.id)}
+								id="answer-btn"
+							>
+								Answer Question
+							</Button>
+						</Card>
+					</Col>
 				);
 			}
-		});
+		});	
 		return (
 			<div className="questions">
+				<Alert isOpen={answered} color="success" toggle={() => this.answeredToggle()} fade={true}>Question has been answered! An email has been sent to the user notifying them of your answer.</Alert>
+				<Alert isOpen={error} color="danger" toggle={() => this.errorToggle()} fade={true}>You're Question was unable to be sent!</Alert>
 				{!answerQuestion ? (
-					<ul id="unanswered">
+					<h2 className="text-center" id="unanswered">
 						Unanswered Questions
-						{unansweredQuestions}
-					</ul>
+						<Row>{unansweredQuestions}</Row>
+					</h2>
 				) : null}
-				{question ? (
-					<div className="answer-box">
-						<div className="q-box">
-                            <h2>Asked by: {question.username} on {question.date} </h2>
-							<h1>Question: {question.question}</h1>
-                            <p> {question.message} </p>
-						</div>
-						<form className="answer-form">
-							<textarea onChange={(answer) => this.answerChange(answer)} id="answer-inp" />
-                            <button onClick={() => this.answer()} id="answer-btn">Send Answer</button>
-							<button onClick={() => this.answerToggle()} id="cancel-btn">
-								Cancel
-							</button>
-						</form>
-					</div>
+				{answerQuestion && question ? (
+					<div>
+						<h2 className="text-center" id="unanswered">
+						Unanswered Questions
+						<Row>{unansweredQuestions}</Row>
+					</h2>
+					<Modal isOpen={answerQuestion}>
+						<ModalHeader>
+							Question: {question.question} 
+							<hr />
+							Message: {question.message}
+							 </ModalHeader>
+						<ModalBody>
+							<Input
+								onChange={(answer) => this.answerChange(answer)}
+								type="textarea"
+								placeholder="Write your best answer in here or else..."
+							/>
+						</ModalBody>
+						<ModalFooter>
+							<Button color="danger" onClick={() => this.answerToggle()} >
+						Cancel
+					</Button>
+							<Button color="success" onClick={() => this.answer(question.id)}>Send Answer</Button>
+						</ModalFooter>
+					</Modal>
+					
+				</div>
 				) : null}
 			</div>
 		);

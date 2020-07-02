@@ -15,7 +15,7 @@
     flex-direction: column;
     align-items: center;
 }
-.btn {
+.btn-div {
     position: absolute;
     margin-top: 450px;
 }

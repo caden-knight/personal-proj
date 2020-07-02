@@ -1,47 +1,26 @@
-.Landing {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 72px;
-	background-image: linear-gradient(to bottom right, lightblue, navy);
-	width: 100vw;
-	height: 100vh;
-}
-.welcome {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	font-size: 72px;
-}
-#continue-btn {
-	margin-top: 100px;
-	height: 50px;
-	width: 300px;
-}
-.login,
+.login-form,
 .reg-form {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-evenly;
-	background: linear-gradient(navy, lightblue);
-	width: 500px;
-	height: 750px;
-	padding: 50px;
+	background-color: lavender;
+	margin: auto;
+	width: 100%;
+	max-width: 500px;
+	height: 100%;
+	padding: 15px;
 }
 
-.username-inp,
-.password-inp,
-.reg-username,
-#reg-email,
-.reg-password,
-#profile-pic {
-	width: 400px;
-}
 
-#login-prompt,
+
+#name,
 #reg-prompt {
 	font-size: 24px;
 	display: block;
-	color: rgb(187, 222, 246);
+	color: rgb(34, 127, 214);
+}
+
+#welcome {
+	color: black;
+	font-size: 20px;
+}
+.btn {
+	margin-top: 0px;
 }
