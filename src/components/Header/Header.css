@@ -15,3 +15,14 @@
 #moon-pic{
     margin-right: 15px;
 }
+@media (orientation: portrait) {
+    .prof-pic{
+        height: 0px;
+        width: 0px;
+        float: right;
+    }
+    .user-info{
+        height: 0px;
+        width: 0px;
+    }
+}

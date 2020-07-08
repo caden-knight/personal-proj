@@ -8,7 +8,7 @@ function Home(props) {
 	return (
 		<div className="welcome-user">
 			<Jumbotron>
-				<h1 id="title" className="display-3">Welcome, {props.username}</h1>
+				<h1 id="home-title" className="display-3">Welcome, {props.username}</h1>
 				<p className="lead">
 				</p>
 				<p className="lead">

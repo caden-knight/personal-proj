@@ -74,16 +74,21 @@ class Posts extends Component {
 		posts.sort((a, b) => b.id - a.id);
 		const allPosts = posts.map((post) => {
 			return (
-				<ListGroupItem key={post.id}>
-					<ListGroupItemHeading className="title" className="text-left">{post.title}</ListGroupItemHeading>
-					<ListGroupItemText className="author">
-						Posted on {post.date}
-						<br />
-						By {post.username}
-						<hr />
-						{post.content}
-					</ListGroupItemText>
-				</ListGroupItem>
+				<div className="post-cards">
+							
+					<ListGroupItem id="post-card" key={post.id}>
+						<ListGroupItemHeading className="title" className="text-left">
+							{post.title}
+						</ListGroupItemHeading>
+						<ListGroupItemText className="author">
+							Posted on {post.date}
+							<br />
+							By {post.username}
+							<hr />
+							{post.content}
+						</ListGroupItemText>
+					</ListGroupItem>
+				</div>
 			);
 		});
 
@@ -96,20 +101,27 @@ class Posts extends Component {
 						{/* <input onClick={() => this.myPostsToggle()} type="checkbox" id="my-posts" /> */}
 						{/* <label htmlFor="my-posts">My Posts</label> */}
 						<ListGroup className="posts">
-						<Col sm={{ size: 'auto', offset: 1 }}>
-							<Button className="float-right" color="success" id="new-btn" onClick={() => this.creatingToggle()}>
-								New Post
-							</Button>
-						</Col>
+						<Button
+									color="success"
+									id="new-btn"
+									onClick={() => this.creatingToggle()}
+								>
+									New Post
+								</Button>
 							{allPosts}
 						</ListGroup>
 					</div>
 				) : (
 					<Form id="new-post">
-						<h1>Create a Post</h1>
+						<h1 id="create-title">Create a Post</h1>
 						<FormGroup>
 							<Label for="title">Name Your Post</Label>
-							<Input placeholder="title" id="title" onChange={(title) => this.titleChange(title)} />
+							<Input
+								className="text-left"
+								placeholder="Name your post"
+								id="title"
+								onChange={(title) => this.titleChange(title)}
+							/>
 						</FormGroup>
 						<FormGroup>
 							<Label for="content">Compose your Post</Label>
@@ -123,7 +135,9 @@ class Posts extends Component {
 						<Button color="success" block onClick={() => this.newPost()} type="submit">
 							Post
 						</Button>
-						<Button color="danger" block onClick={() => this.creatingToggle()}>Cancel</Button>
+						<Button color="danger" block onClick={() => this.creatingToggle()}>
+							Cancel
+						</Button>
 					</Form>
 				)}
 			</div>

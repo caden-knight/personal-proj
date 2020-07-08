@@ -1,18 +1,33 @@
-.posts{
-	width: 750px;
+.posts {
 	height: 100%;
 	margin: auto;
 }
-.list-group-item{
+.list-group-item {
 	margin-bottom: 15px;
 }
-#new-post{
+#new-post {
 	width: 100%;
 	height: 100%;
-	max-width: 800px;
 	margin: auto;
 }
-#new-btn{
+#new-btn {
 	width: 35%;
 	margin-top: 25px;
+
+}
+@media (orientation: portrait) {
+	#title {
+		height: 36px;
+		font-size: 18px;
+	}
+	#content {
+		height: 210px;
+		width: 100%;
+	}
+	
+	#new-btn {
+		width: 35%;
+		margin-top: 25px;
+		margin-left: 244px;
+	}
 }

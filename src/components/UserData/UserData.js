@@ -60,13 +60,12 @@ class UserData extends Component {
 			.catch((err) => console.log(err));
 	}
 	render() {
-		const { dreams, lucidDreams, chartData } = this.state;
+		const { chartData } = this.state;
 
 		return (
 			<div className="userData">
 				{chartData ? (
 					<div className="charts">
-						<h1>User Data</h1>
 						<Doughnut
 							data={chartData}
 							options={{

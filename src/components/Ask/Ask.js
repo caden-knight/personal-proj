@@ -46,7 +46,7 @@ export default class Ask extends Component {
 				<Alert className="text-center" isOpen={sent} toggle={() => this.sentToggle()} color="success">Question Sent!</Alert>
 				{!asking ? (
 					<div id="title">
-						<h1 className="text-center">Lucid Dreaming Experts</h1>
+						<h1 id="top-title" className="text-center">Lucid Dreaming Experts</h1>
 						<div className="experts">
 							<div id="expert1">
 								<img
