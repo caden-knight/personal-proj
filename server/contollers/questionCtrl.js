@@ -45,11 +45,11 @@ module.exports = {
 			res.status(200).send(question[0]);
 		}
 	},
-	answerQuestion: (req, res) => {
+	answerQuestion: async (req, res) => {
 		const db = req.app.get('db');
 		const { id } = req.params;
 		const { answer } = req.body;
-		const email = req.session.user.email;
+		const [{email}] = await db.get_email(id);
 		console.log(email);
 
 		try {
