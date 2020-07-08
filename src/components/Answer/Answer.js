@@ -83,18 +83,21 @@ class Answer extends React.Component {
 			if (!question.answered) {
 				console.log(question.id);
 				return (
-					<Col key={question.id} sm="3">
+					<Col className="all-them-questions" key={question.id} sm="7">
 						<Card className="question-card" body>
 							<CardTitle>
-								<h3>Asked on: {question.date}</h3>
-								<hr />
-								<h3>By: {question.username}</h3>
+								<h3 id="asked-header">Asked on</h3>
+								<p id="asked-date">{question.date}</p>
+								<br />
+								<h3 id="author-header" >By</h3>
+								<p id="question-author">{question.username}</p>
 							</CardTitle>
-
-							<CardText />
-							<h5>{question.question}</h5>
 							<hr />
-							<h5>{question.message}</h5>
+							<CardText />
+							<h4 id="question-title">Question</h4>
+							<p id="question">{question.question}</p>
+							<h4 id="question-title">Message</h4>
+							<p id="question-msg">{question.message}</p>
 							<Button
 								outline
 								color="success"
@@ -113,18 +116,21 @@ class Answer extends React.Component {
 				<Alert isOpen={answered} color="success" toggle={() => this.answeredToggle()} fade={true}>Question has been answered! An email has been sent to the user notifying them of your answer.</Alert>
 				<Alert isOpen={error} color="danger" toggle={() => this.errorToggle()} fade={true}>You're Question was unable to be sent!</Alert>
 				{!answerQuestion ? (
+					<div className="all-questions">
 					<h2 className="text-center" id="unanswered">
 						Unanswered Questions
-						<Row>{unansweredQuestions}</Row>
 					</h2>
+						<Row>{unansweredQuestions}</Row>
+						</div>
 				) : null}
 				{answerQuestion && question ? (
 					<div>
 						<h2 className="text-center" id="unanswered">
 						Unanswered Questions
-						<Row>{unansweredQuestions}</Row>
 					</h2>
-					<Modal isOpen={answerQuestion}>
+						<Row>{unansweredQuestions}</Row>
+						<div className="modal">
+					<Modal className="answer-box" isOpen={answerQuestion}>
 						<ModalHeader>
 							Question: {question.question} 
 							<hr />
@@ -144,7 +150,7 @@ class Answer extends React.Component {
 							<Button color="success" onClick={() => this.answer(question.id)}>Send Answer</Button>
 						</ModalFooter>
 					</Modal>
-					
+					</div>
 				</div>
 				) : null}
 			</div>

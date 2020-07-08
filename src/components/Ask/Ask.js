@@ -86,13 +86,13 @@ export default class Ask extends Component {
 					<div>
 						<Form className="question-form">
 							<FormGroup>
-								<Label size="lg" for="question">
+								<h1 id="ask-title">
 									Ask Your Burning Questions Here
-								</Label>
+								</h1>
 								<Input
 									id="question"
 									onChange={(question) => this.questionChange(question)}
-									placeholder="What questions can our experts help you with..."
+									placeholder="Ask our experts something..."
 								/>
 							</FormGroup>
 

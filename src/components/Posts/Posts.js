@@ -75,7 +75,6 @@ class Posts extends Component {
 		const allPosts = posts.map((post) => {
 			return (
 				<div className="post-cards">
-							
 					<ListGroupItem id="post-card" key={post.id}>
 						<ListGroupItemHeading className="title" className="text-left">
 							{post.title}
@@ -96,20 +95,18 @@ class Posts extends Component {
 			<div className="top-div">
 				{!creatingNew ? (
 					<div className="post-view">
-						<h1 className="text-center">The Lucid Community</h1>
+						<div className="posts-intro">
+						<h1 id="post-welcome" className="text-center">
+							The Lucid Community
+						</h1>
 						<h5 className="text-center">Don't be shy, say something!</h5>
+						<Button color="success" id="new-post-btn" onClick={() => this.creatingToggle()}>
+							New Post
+						</Button>
+						</div>
 						{/* <input onClick={() => this.myPostsToggle()} type="checkbox" id="my-posts" /> */}
 						{/* <label htmlFor="my-posts">My Posts</label> */}
-						<ListGroup className="posts">
-						<Button
-									color="success"
-									id="new-btn"
-									onClick={() => this.creatingToggle()}
-								>
-									New Post
-								</Button>
-							{allPosts}
-						</ListGroup>
+						<ListGroup className="posts">{allPosts}</ListGroup>
 					</div>
 				) : (
 					<Form id="new-post">
@@ -132,11 +129,11 @@ class Posts extends Component {
 								type="textarea"
 							/>
 						</FormGroup>
-						<Button color="success" block onClick={() => this.newPost()} type="submit">
-							Post
-						</Button>
-						<Button color="danger" block onClick={() => this.creatingToggle()}>
+						<Button id="post-cancel" color="danger" onClick={() => this.creatingToggle()}>
 							Cancel
+						</Button>
+						<Button id="post-submit" color="success" onClick={() => this.newPost()} type="submit">
+							Post
 						</Button>
 					</Form>
 				)}
