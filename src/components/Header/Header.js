@@ -1,9 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { loginUser, logout } from '../../ducks/reducer';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Navbar, NavbarBrand, Nav, NavItem, NavLink, Button } from 'reactstrap';
+import { Navbar, NavbarBrand, Nav, NavLink, Button } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import moon from '../../pics/moon.png'
 import axios from 'axios';
@@ -65,7 +64,7 @@ class Header extends React.Component {
 						</Nav>
 					</Navbar>
 				) : (
-						<Navbar color="dark" className="admin-nav">
+						<Navbar color="dark" dark expand="md" className="admin-nav">
 							<NavbarBrand href="#home">
 							<img
 							src={moon}

@@ -1,0 +1,10 @@
+@media (orientation: portrait){
+    #title {
+        text-align: center;
+        font-size: 36px;
+    }
+    #about-btn{
+        width: 100%;
+        margin: auto;
+    }
+}

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import './Entry.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, ButtonGroup, Form, FormGroup, Label, Input} from 'reactstrap';
+import { Button, ButtonGroup, Form, FormGroup, Label, Input } from 'reactstrap';
 
 class Entry extends Component {
 	constructor() {
@@ -27,8 +27,8 @@ class Entry extends Component {
 		// });
 		axios.get('/api/user_entries').then((res) => {
 			this.setState({ userEntries: res.data });
-		});
-		this.state.userEntries.sort((a, b) => b.id - a.id);
+			this.state.userEntries.sort((a, b) => b.id - a.id);
+		}).catch(err => console.log(err));
 	}
 	leftEditToggle() {
 		this.setState({ leftEditing: !this.state.leftEditing });
@@ -88,21 +88,22 @@ class Entry extends Component {
 			this.leftEditToggle();
 		});
 	}
-	rightDelete(){
-		const {userEntries, right} = this.state
-		const rightEntry = userEntries[right - 1]
+	rightDelete() {
+		const { userEntries, right } = this.state;
+		const rightEntry = userEntries[right - 1];
 		axios.delete(`/api/entry/${rightEntry.id}`).then((res) => {
 			alert('right Post deleted');
 			this.componentDidMount();
 		});
 	}
-	leftDelete(){
-		const {userEntries, left} = this.state
-		const leftEntry = userEntries[left - 1]
+	leftDelete() {
+		const { userEntries, left } = this.state;
+		const leftEntry = userEntries[left - 1];
 		axios.delete(`/api/entry/${leftEntry.id}`).then((res) => {
 			alert('left Post deleted');
 			this.componentDidMount();
-		});
+			console.log(userEntries, leftEntry)
+		}).catch(err => console.log(err));
 	}
 	render() {
 		const {
@@ -119,10 +120,6 @@ class Entry extends Component {
 		userEntries.sort((a, b) => b.id - a.id);
 		const leftEntry = userEntries[left - 1];
 		const rightEntry = userEntries[right - 1];
-		console.log('left', leftEntry);
-		console.log('right', rightEntry);
-		console.log(userEntries);
-		console.log(this.props);
 		return (
 			<div className="window">
 				<button onClick={() => this.props.next()}>back to title</button>
@@ -131,14 +128,15 @@ class Entry extends Component {
 					{leftEntry ? (
 						<div className="l-pg">
 							<ButtonGroup className="journal-btns">
-							<Button color="primary" onClick={() => this.pageDec()}>flip back</Button>
-							<Button color="warning" id="left-edit" onClick={() => this.leftEditToggle()}>
-								Edit Page
-							</Button>
-							<Button color="danger" onClick={() => this.leftDelete()} id="l-del">
-								
-								Delete Entry
-							</Button>
+								<Button color="primary" onClick={() => this.pageDec()}>
+									flip back
+								</Button>
+								<Button color="warning" id="left-edit" onClick={() => this.leftEditToggle()}>
+									Edit Page
+								</Button>
+								<Button color="danger" onClick={() => this.leftDelete()} id="l-del">
+									Delete Entry
+								</Button>
 							</ButtonGroup>
 							<h4 id="l-pg-num">{`${left}`}</h4>
 							<h3 id="l-title">{leftEntry.title}</h3>
@@ -147,7 +145,12 @@ class Entry extends Component {
 							<h3> {leftEntry.dreamSigns} </h3>
 						</div>
 					) : (
-						<div className="l-pg" />
+						<div className="l-pg">
+						<Button color="primary" onClick={() => this.pageDec()}>
+									flip back
+								</Button>
+								</div>
+								
 					)}
 					{leftEntry && leftEditing ? (
 						<Form className="edit-form">
@@ -172,7 +175,7 @@ class Entry extends Component {
 								defaultValue={leftEntry.dreamSigns}
 							/>
 							<Button
-							color="success"
+								color="success"
 								id="edit-submit"
 								onClick={() =>
 									this.editEntryLeft(newLucid, newTitle, newContent, newDreamSigns, leftEntry.id)}
@@ -187,13 +190,16 @@ class Entry extends Component {
 
 					{rightEntry ? (
 						<div id="r-pg">
-							<ButtonGroup id="r-pg-btns">
-								
-							<Button color="danger" onClick={() => this.rightDelete()} id="r-del">Delete Entry</Button>
-							<Button color="warning" onClick={() => this.rightEditToggle()} id="edit-btn">
-								Edit Page
-							</Button>
-							<Button color="primary" onClick={() => this.pageInc()}>flip page</Button>
+							<ButtonGroup className="float-right" id="r-pg-btns">
+								<Button color="danger" onClick={() => this.rightDelete()} id="r-del">
+									Delete Entry
+								</Button>
+								<Button color="warning" onClick={() => this.rightEditToggle()} id="edit-btn">
+									Edit Page
+								</Button>
+								<Button color="primary" onClick={() => this.pageInc()}>
+									flip page
+								</Button>
 							</ButtonGroup>
 							<h4 id="r-pg-num">{`${right}`}</h4>
 							<h3 id="r-title"> {rightEntry.title} </h3>
@@ -211,8 +217,8 @@ class Entry extends Component {
 								defaultValue={rightEntry.title}
 							/>
 							<FormGroup className="new-lucidity">
-								<label htmlFor="new-lucid">Lucidity</label>
-								<input onClick={() => this.editLucid()} id="new-lucid" type="checkbox" />
+								<Label for="new-lucid">Lucidity</Label>
+								<Input onClick={() => this.editLucid()} id="new-lucid" type="checkbox" />
 							</FormGroup>
 							<Input
 								type="textarea"
@@ -227,7 +233,7 @@ class Entry extends Component {
 								placeholder="Dream Signs"
 							/>
 							<Button
-							color="success"
+								color="success"
 								id="edit-submit"
 								onClick={() =>
 									this.editEntryRight(newLucid, newTitle, newContent, newDreamSigns, rightEntry.id)}

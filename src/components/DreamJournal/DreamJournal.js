@@ -84,7 +84,6 @@ class DreamJournal extends Component {
 				</div>
 			);
 		});
-		console.log(entries);
 		return (
 			<div className="parent">
 				{creating && !this.state.next ? (
@@ -137,7 +136,6 @@ class DreamJournal extends Component {
 						<Button color="warning" className="float-right" id="record-btn" onClick={() => this.addEntry()}>
 							Record My Dream!
 						</Button>
-
 					</Form>
 				) : null}
 				{!this.state.next && !creating ? (
@@ -147,7 +145,9 @@ class DreamJournal extends Component {
 								<Button id="create-btn" onClick={() => this.creatingToggle()}>
 									Record a Dream
 								</Button>
-						<Button className="float-right" onClick={() => this.nextToggle()}>Next</Button>
+								<Button className="float-right" onClick={() => this.nextToggle()}>
+									Next
+								</Button>
 								<h1 className="journal-title">{this.props.username}'s Dream Journal</h1>
 							</div>
 							<div className="pages" />

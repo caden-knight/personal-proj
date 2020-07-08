@@ -23,7 +23,7 @@
     background-color: #FFFACC;
 }
 #r-pg-num{
-   text-align: right;
+   margin-top: 38px;
 }
 
 .edit-form {
@@ -33,18 +33,23 @@
     width: 410px;
     background-color: #fffde8;
     box-shadow: 5px 5px 3px gray ;
+    margin-right: 50px;
 }
 #new-title, #new-dream-signs, #new-content {
+
     width: 385px;
-    flex-direction: column;
 }
-#new-lucid {
-    width: fit-content;
+#new-lucid{
+    margin-right: 0px;
 }
 #new-content {
     height: 200px;
 }
-.journal-btns, #r-pg-btns{
+.journal-btns #r-pg-btns{
     margin-bottom: 20px;
+}
+
+#l-pg-num{
+    text-align: right;
 }
 

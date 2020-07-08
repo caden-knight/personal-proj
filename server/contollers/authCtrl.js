@@ -50,7 +50,7 @@ module.exports = {
 			//register the user
 			const newUser = await db.register([ email, username, hash, profilePic ]);
 
-			req.session.user = newUser;
+			req.session.user = newUser[0];
 			let transporter = nodemailer.createTransport({
 				service: 'gmail',
 				auth: {
@@ -74,7 +74,7 @@ module.exports = {
 				}
 			});
 
-			res.status(200).send(newUser);
+			res.status(200).send(newUser[0]);
 		} catch (err) {
 			console.log(err);
 			res.status(500).send('Something went wrong');

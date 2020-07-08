@@ -77,15 +77,14 @@ class Answer extends React.Component {
 
 	render() {
 		const { questions, answered, question, error } = this.state;	
-		console.log(this.state.question);
-		console.log(questions);
+
 		const { answerQuestion } = this.state;
 		const unansweredQuestions = questions.map((question) => {
 			if (!question.answered) {
 				console.log(question.id);
 				return (
 					<Col key={question.id} sm="3">
-						<Card body>
+						<Card className="question-card" body>
 							<CardTitle>
 								<h3>Asked on: {question.date}</h3>
 								<hr />

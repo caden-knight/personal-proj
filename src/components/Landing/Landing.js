@@ -42,11 +42,14 @@ class Landing extends Component {
 		axios
 			.post('/auth/register', { email, username, password, profilePic })
 			.then((res) => {
-				this.props.loginUser(res.data);
 				this.props.history.push('/home');
-				this.setState({error: false})
+				this.props.loginUser(res.data)
+				this.setState({
+					error: false,
+					register: false
+				})
 			})
-			.catch((err) => <Alert>Username or email is already in use</Alert>);
+			.catch((err) => alert(err));
 	}
 	continueToggle() {
 		const { continueBtn } = this.state;
@@ -142,7 +145,7 @@ class Landing extends Component {
 						<Button id="reg-cancel" onClick={() => this.registerToggle()}>
 							Back to Login
 						</Button>
-						<Button className="float-right" color="success" className="reg-acct" onClick={() => this.register()}>
+						<Button className="float-right" color="success"  onClick={() => this.register()}>
 							Register Account
 						</Button>
 					</Form>

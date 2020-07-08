@@ -75,7 +75,7 @@ class Posts extends Component {
 		const allPosts = posts.map((post) => {
 			return (
 				<ListGroupItem key={post.id}>
-					<ListGroupItemHeading className="title">{post.title}</ListGroupItemHeading>
+					<ListGroupItemHeading className="title" className="text-left">{post.title}</ListGroupItemHeading>
 					<ListGroupItemText className="author">
 						Posted on {post.date}
 						<br />

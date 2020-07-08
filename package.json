@@ -9,12 +9,14 @@
     "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^4.5.0",
+    "chart.js": "^2.9.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "massive": "^6.4.0",
     "nodemailer": "^6.4.10",
     "react": "^16.13.1",
+    "react-chartjs-2": "^2.9.0",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "react-router": "^5.2.0",
@@ -47,5 +49,5 @@
     ]
   },
   "main": "server/index.js",
-  "proxy": "http://lucid.kevinpthorne.com:5005"
+  "proxy": "http://localhost:5000"
 }
